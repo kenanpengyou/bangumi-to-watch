@@ -1,19 +1,18 @@
-/**
- * This example:
- *  Shows how to plug in the details of your server.
- *  Watches & injects CSS files
- */
-var gulp = require('gulp');
-var browserSync = require('browser-sync');
-// var sass = require('gulp-sass');
+var gulp = require("gulp");
+var browserSync = require("browser-sync");
+var browserify = require("browserify");
+var source = require('vinyl-source-stream');
 
-// gulp.task('sass', function() {
-//     return gulp.src("./sass/*.scss")
-//         .pipe(sass())
-//         .pipe(gulp.dest("./css"));
-// });
 
-gulp.task('browser-sync', function() {
+gulp.task("browserify", function() {
+    return browserify("./app.js")
+        .bundle()
+        .pipe(source("bundle.js"))
+        .pipe(gulp.dest("./"));
+});
+
+
+gulp.task("browser-sync", function() {
     browserSync({
         files: ["**"],
         exclude: ["./idea/**"],
@@ -24,5 +23,4 @@ gulp.task('browser-sync', function() {
     });
 });
 
-// Default task to be run with `gulp`
-gulp.task('default', ["browser-sync"]);
+gulp.task("default", ["browser-sync"]);
