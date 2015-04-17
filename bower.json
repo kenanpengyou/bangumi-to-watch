@@ -1,0 +1,20 @@
+{
+  "name": "bangumi-to-watch",
+  "version": "1.0.0",
+  "homepage": "https://github.com/kenanpengyou/bangumi-to-watch",
+  "authors": [
+    "liangzhu"
+  ],
+  "description": "A web application that may be useful for a TV series follower.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize.css": "~3.0.3"
+  }
+}
