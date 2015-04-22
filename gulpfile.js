@@ -1,9 +1,10 @@
 var gulp = require("gulp");
 var debug = require('gulp-debug');
-var rename = require("gulp-rename");
 var browserSync = require("browser-sync").create();
+var reload      = browserSync.reload;
 var browserify = require("browserify");
 var postcss = require("gulp-postcss");
+var filter      = require('gulp-filter');
 var autoprefixer = require('autoprefixer-core');
 var postcssSimpleVars = require("postcss-simple-vars");
 var postcssMixins = require("postcss-mixins");
@@ -19,33 +20,29 @@ gulp.task("postcss", function(){
         postcssNested,
         autoprefixer({
             browsers: ["last 2 versions"]
-        })
-        ],
-    renameConfig = {
-        suffix: "_transformed"
-    };
+        })]
 
-    return gulp.src("./css/*.css")
+    return gulp.src("./stylesheets/src/*.css")
         .pipe(sourcemaps.init())
         .pipe(postcss(processors))
         .pipe(sourcemaps.write("."))
-        .pipe(rename(renameConfig))
-        .pipe(gulp.dest("./css"));
+        .pipe(gulp.dest("./stylesheets/dest"))
+        .pipe(filter("*.css"))
+        .pipe(reload({stream: true}))
 });
 
 // Javascript process.
 gulp.task("browserify", function() {
-    return browserify("./bangumi.js")
+    return browserify("./javascripts/src/bangumi.js")
         .bundle()
         .pipe(source("bangumi_bundle.js"))
-        .pipe(gulp.dest("./"));
+        .pipe(gulp.dest("./javascripts/dest"));
 });
 
 gulp.task("js-watch", ["browserify"], browserSync.reload);
 
-
 // Auto refresh.
-gulp.task("browser-sync", function() {
+gulp.task("browser-sync", ["js-watch"], function() {
     browserSync({
         port: "5000",
         server: {
@@ -54,7 +51,7 @@ gulp.task("browser-sync", function() {
     });
 
     gulp.watch("./javascript/*.js", ["js-watch"]);
-
+    gulp.watch("./css/*.css", ["postcss"]);
 });
 
 gulp.task("dev", ["browser-sync"]);
