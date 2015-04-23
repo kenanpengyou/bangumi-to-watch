@@ -4,3 +4,40 @@
 * date 2015-04-22
 */
 
+/*------------------------------------*\
+    # ICONS
+\*------------------------------------*/
+
+@import "fontello.css";
+
+/*------------------------------------*\
+    # BASE SKIN
+\*------------------------------------*/
+
+body{
+    font-family: verdana, "Microsoft Yahei", arial, sans-serif;
+}
+
+/*------------------------------------*\
+    #HEADER
+\*------------------------------------*/
+.app-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 42px;
+    background: #2b5277;
+}
+.header-title{
+    color: #fff;
+    font-size: 18px;
+}
+.header-handle{
+    position: absolute;
+    top: 0;
+
+    &.handle-right {
+        right: 0;
+    }
+}

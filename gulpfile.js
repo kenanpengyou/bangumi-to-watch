@@ -1,8 +1,9 @@
 var gulp = require("gulp");
-var debug = require('gulp-debug');
 var browserSync = require("browser-sync").create();
 var reload      = browserSync.reload;
 var browserify = require("browserify");
+var buffer = require('vinyl-buffer');
+var uglify = require("gulp-uglify");
 var postcss = require("gulp-postcss");
 var filter      = require('gulp-filter');
 var autoprefixer = require('autoprefixer-core');
@@ -20,9 +21,9 @@ gulp.task("postcss", function(){
         postcssNested,
         autoprefixer({
             browsers: ["last 2 versions"]
-        })]
+        })];
 
-    return gulp.src("./stylesheets/src/*.css")
+    return gulp.src(["./stylesheets/src/*.css**", "!./stylesheets/src/fontello.css"])
         .pipe(sourcemaps.init())
         .pipe(postcss(processors))
         .pipe(sourcemaps.write("."))
@@ -33,25 +34,35 @@ gulp.task("postcss", function(){
 
 // Javascript process.
 gulp.task("browserify", function() {
+    var uglifyConfig = {
+        mangle: false,
+        compress: false,
+        preserveComments: "all"
+    };
+
     return browserify("./javascripts/src/bangumi.js")
         .bundle()
-        .pipe(source("bangumi_bundle.js"))
+        .pipe(source("bangumi.js"))
+        .pipe(buffer())
+        .pipe(uglify(uglifyConfig))
         .pipe(gulp.dest("./javascripts/dest"));
 });
 
-gulp.task("js-watch", ["browserify"], browserSync.reload);
+gulp.task("reload-js", ["browserify"], reload);
 
 // Auto refresh.
-gulp.task("browser-sync", ["js-watch"], function() {
-    browserSync({
+gulp.task("browser-sync", ["postcss", "browserify"], function() {
+    browserSync.init({
         port: "5000",
         server: {
             baseDir: "./"
         }
     });
 
-    gulp.watch("./javascript/*.js", ["js-watch"]);
-    gulp.watch("./css/*.css", ["postcss"]);
+    gulp.watch("./javascripts/src/*.js", ["reload-js"]);
+    gulp.watch("./stylesheets/src/*.css", ["postcss"]);
+    gulp.watch("./index.html", reload);
 });
 
 gulp.task("dev", ["browser-sync"]);
+gulp.task("default", ["dev"]);
