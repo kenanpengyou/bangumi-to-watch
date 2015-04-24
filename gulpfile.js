@@ -10,12 +10,14 @@ var autoprefixer = require('autoprefixer-core');
 var postcssSimpleVars = require("postcss-simple-vars");
 var postcssMixins = require("postcss-mixins");
 var postcssNested = require("postcss-nested");
+var postcssImport = require("postcss-import")
 var sourcemaps = require("gulp-sourcemaps");
 var source = require('vinyl-source-stream');
 
 // Css process.
 gulp.task("postcss", function(){
     var processors = [
+        postcssImport,
         postcssMixins,
         postcssSimpleVars,
         postcssNested,
@@ -56,7 +58,8 @@ gulp.task("browser-sync", ["postcss", "browserify"], function() {
         port: "5000",
         server: {
             baseDir: "./"
-        }
+        },
+        notify: false
     });
 
     gulp.watch("./javascripts/src/*.js", ["reload-js"]);
