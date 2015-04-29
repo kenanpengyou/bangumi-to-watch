@@ -8,4 +8,9 @@ var Backbone = require("backbone");
 var $ = require('jquery');
 
 Backbone.$ = $;
-console.log(Backbone);
+
+;(function(){
+    $(".subscription-edit").click(function(event){
+       $(".subscription-collection").toggleClass("is-editing");
+    });
+}());

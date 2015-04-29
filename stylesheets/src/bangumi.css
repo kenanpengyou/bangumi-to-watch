@@ -43,7 +43,7 @@ a{
     position: absolute;
     width: 100%;
     height: 42px;
-    background: #466c91;
+    background: #455a64;
 }
 .header-title{
     color: #fff;
@@ -63,7 +63,7 @@ a{
     height: 30px;
     margin: 6px 6px 0 0;
     border-radius: 50%;
-    background: #678aac;
+    background: #607d8b;
     color: #fff;
     font-size: 18px;
     text-align: center;
@@ -103,47 +103,162 @@ html, body{
     #MAIN
 \*------------------------------------*/
 
+/* base note */
+.base-note{
+    padding: 10px 0 0 0;
+    font-size: 12px;
+
+    &:before {
+        display: inline-block;
+        width: 6px;
+        height: 14px;
+        margin-right: 5px;
+        background: #455a64;
+        vertical-align: text-bottom;
+        content: "";
+    }
+}
+
 /* reminder */
 .reminder-collection{
-    padding: 20px 0;
-    border-bottom: 1px dashed #2b5277;
+    @mixin clearfix;
+    margin-bottom: 10px;
+    padding: 10px 0 0 0;
 }
 .reminder-item{
-    padding: 5px 10px;
-    border-radius: 2px;
-    background: #678aac;
-    color: #fff;
+    display: flex;
+    align-items: center;
+    float: left;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px dotted #7571b4;
     font-size: 12px;
 
     &:not(:last-of-type){
-        margin-bottom: 10px;
+        margin-right: 10px;
     }
 }
 .reminder-bangumi{
-
+    padding: 2px 4px;
+    border-radius: 2px;
+    background: #727272;
+    color: #fff;
+}
+.reminder-date{
+    margin-left: 5px;
+    padding: 1px 2px;
+    border-radius: 1px;
+    color: #666;
+    font-size: 10px;
+}
+.reminder-handle{
+    margin-left: 5px;
+}
+.complete-mark{
+    padding: 1px;
+    border-radius: 50%;
+    background: #b6b6b6;
+    color: #fff;
+    font-size: 12px;
 }
 
 /* day */
 .day-collection{
-    padding: 20px 0 0 0;
-    border-bottom: 1px dashed #2b5277;
+    margin-bottom: 10px;
+    padding: 10px 0 0 0;
     @mixin clearfix;
 }
 .day-item{
     float: left;
-    margin-bottom: 20px;
-    padding: 5px 13px;
+    margin-bottom: 10px;
+    padding: 5px 20px;
     border-radius: 2px;
-    background: #5DA4A4;
+    background: #607d8b;
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
 
     &.is-today{
-        background: #e78383;
+        background: #f74f4f;
     }
 
     &:not(:last-of-type){
-        margin-right: 20px;
+        margin-right: 10px;
     }
 }
 
+/* subscription */
+.subscription-overview{
+    margin-bottom: 10px;
+}
+.day-bangumi-count{
+    display: inline-block;
+    padding: 4px;
+    border-radius: 2px;
+    background: #b6b6b6;
+    color: #fff;
+    font-size: 12px;
+    vertical-align: middle;
+}
+.subscription-edit{
+    display: inline-block;
+    margin-left: 10px;
+    padding: 3px 1px 3px 3px;
+    border-radius: 2px;
+    background: #b6b6b6;
+    color: #fff;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.subscription-add{
+    display: inline-block;
+    margin-left: 10px;
+    padding: 3px;
+    border-radius: 2px;
+    background: #b6b6b6;
+    color: #fff;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.subscription-collection{
+    @mixin clearfix;
+}
+.subscription-item{
+    display: flex;
+    align-items: center;
+    float: left;
+    margin-bottom: 10px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 2px;
+    background: #455a64;
+    color: #fff;
+    font-size: 12px;
+
+    &:not(:last-of-type){
+        margin-right: 10px;
+    }
+}
+.subscription-bangumi{
+    margin-right: -3px;
+    transition: margin .25s ease;
+}
+.subscription-handle{
+    margin-right: -13px;
+}
+.delete-mark{
+    color: #fff;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity .25s ease;
+    /* pointer-events: none; */
+}
+/* When in this status, show the delete mark. */
+.is-editing{
+
+    .subscription-bangumi {
+        margin: 0 5px 0 -8px;
+    }
+    .delete-mark{
+        opacity: 1;
+        /* pointer-events: auto; */
+    }
+}
