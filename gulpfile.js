@@ -46,7 +46,9 @@ gulp.task("browserify", function() {
         .bundle()
         .pipe(source("bangumi.js"))
         .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(uglify(uglifyConfig))
+        .pipe(sourcemaps.write("."))
         .pipe(gulp.dest("./javascripts/dest"));
 });
 
@@ -59,10 +61,10 @@ gulp.task("browser-sync", ["postcss", "browserify"], function() {
         server: {
             baseDir: "./"
         },
-        notify: false
+        notify: true
     });
 
-    gulp.watch("./javascripts/src/*.js", ["reload-js"]);
+    gulp.watch("./javascripts/src/**/*.js", ["reload-js"]);
     gulp.watch("./stylesheets/src/*.css", ["postcss"]);
     gulp.watch("./index.html", reload);
 });

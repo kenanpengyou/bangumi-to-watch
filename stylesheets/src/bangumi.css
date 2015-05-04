@@ -249,6 +249,7 @@ html, body{
     font-size: 12px;
     opacity: 0;
     transition: opacity .25s ease;
+    cursor: default;
     /* pointer-events: none; */
 }
 /* When in this status, show the delete mark. */
@@ -259,6 +260,7 @@ html, body{
     }
     .delete-mark{
         opacity: 1;
+        cursor: pointer;
         /* pointer-events: auto; */
     }
 }
