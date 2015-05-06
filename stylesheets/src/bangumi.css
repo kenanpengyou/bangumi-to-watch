@@ -162,6 +162,11 @@ html, body{
     font-size: 12px;
 }
 
+/* day note display */
+.day-note-display}{
+    margin-bottom: 10px;
+}
+
 /* day */
 .day-collection{
     margin-bottom: 10px;

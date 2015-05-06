@@ -47,7 +47,7 @@ gulp.task("browserify", function() {
         .pipe(source("bangumi.js"))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(uglify(uglifyConfig))
+        .pipe(uglify())
         .pipe(sourcemaps.write("."))
         .pipe(gulp.dest("./javascripts/dest"));
 });

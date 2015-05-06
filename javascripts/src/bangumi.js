@@ -13,6 +13,10 @@ var _ = require("underscore");
 Backbone.LocalStorage = require("backbone.localstorage");
 Backbone.$ = $;
 
+//--------------
+// Templates.
+//--------------
+var templates = require("./templates/all");
 
 //--------------
 // Time init.
@@ -32,14 +36,8 @@ timeRecorder.fetch({
 //--------------
 // Day notes.
 //--------------
-var DayNotes = require("./collections/day_notes");
-var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-var dayNotes = new DayNotes();
 
-// A week has 7 days.
-_.each(days, function(day){
-    dayNotes.create({
-        day: day
-    });
-});
-dayNotes.fetch();
+
+//--------------
+// Note reminder.
+//--------------
