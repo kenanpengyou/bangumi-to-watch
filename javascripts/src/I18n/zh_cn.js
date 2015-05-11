@@ -1,5 +1,5 @@
 /*
-* zh_cn.js
+ * zh_cn.js
  * -----------
  * i18n
  * -----------
@@ -7,12 +7,12 @@
 
 module.exports = {
     day: {
-        Monday: "周一",
-        Tuesday: "周二",
-        Wednesday: "周三",
-        Thursday: "周四",
-        Friday: "周五",
-        Saturday: "周六",
-        Sunday: "周日"
+        Monday: "鍛ㄤ竴",
+        Tuesday: "鍛ㄤ簩",
+        Wednesday: "鍛ㄤ笁",
+        Thursday: "鍛ㄥ洓",
+        Friday: "鍛ㄤ簲",
+        Saturday: "鍛ㄥ叚",
+        Sunday: "鍛ㄦ棩"
     }
 };

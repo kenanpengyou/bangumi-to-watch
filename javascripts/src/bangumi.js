@@ -34,8 +34,10 @@ timeRecorder.fetch({
 });
 
 //--------------
-// Day notes.
+// Day note display.
 //--------------
+var DayNoteDisplayView = require("./views/day_note_display_view");
+var dayNoteDisplayView = new DayNoteDisplayView();
 
 
 //--------------

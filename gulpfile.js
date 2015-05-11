@@ -22,7 +22,7 @@ gulp.task("postcss", function(){
         postcssSimpleVars,
         postcssNested,
         autoprefixer({
-            browsers: ["last 2 versions"]
+            browsers: ["Android 4.1", "iOS 7.1", "Chrome > 31", "ff > 31", "ie >= 10"]
         })];
 
     return gulp.src(["./stylesheets/src/*.css**", "!./stylesheets/src/fontello.css"])
@@ -47,7 +47,7 @@ gulp.task("browserify", function() {
         .pipe(source("bangumi.js"))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(uglify())
+        .pipe(uglify(uglifyConfig))
         .pipe(sourcemaps.write("."))
         .pipe(gulp.dest("./javascripts/dest"));
 });

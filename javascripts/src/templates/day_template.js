@@ -6,6 +6,7 @@
 Example:
  <div class="day-item is-today">周一</div>
  <div class="day-item">周二</div>
+ <div class="day-item is-selected">周三</div>
 */
 
 module.exports = [

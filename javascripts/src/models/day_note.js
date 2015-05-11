@@ -4,7 +4,7 @@
  */
 
 var Backbone = require("backbone");
-var _ = require('underscore');
+var _ = require("underscore");
 
 var DayNote = Backbone.Model.extend({
     defaults: {
