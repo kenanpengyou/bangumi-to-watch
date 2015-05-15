@@ -29,10 +29,6 @@ var DayView = Backbone.View.extend({
         _.each(this.days, function(item, index){
             var className = "day-item";
 
-            console.log("[day_view:render]today = ", today === index);
-            console.log("[day_view:render]index = ", index);
-            console.log("[day_view:render]i18n = ", i18n);
-
             if(today === index){
                 className += " " + "is-today";
             }
@@ -53,6 +49,9 @@ var DayView = Backbone.View.extend({
     },
     changeSelected: function(event){
         console.log("[changeSelected] event = ", event);
+    },
+    getSelected: function(){
+        return this.selected;
     },
 
     // ------- custom below -------

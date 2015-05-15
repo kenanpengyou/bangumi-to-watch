@@ -246,6 +246,15 @@ html, body{
     margin-right: -3px;
     transition: margin .25s ease;
 }
+.subscription-input{
+    display: none;
+    width: 100%;
+    margin: 0 -5px;
+    padding: 0 5px;
+    border: none;
+    background: none;
+    box-sizing: border-box;
+}
 .subscription-handle{
     margin-right: -13px;
 }
@@ -257,8 +266,18 @@ html, body{
     cursor: default;
     /* pointer-events: none; */
 }
+/* Could be edited in the line. */
+.subscription-item.is-editing{
+
+    .bangumi-title {
+        display: none;
+    }
+    .subscription-input{
+        display: inline-block;
+    }
+}
 /* When in this status, show the delete mark. */
-.is-editing{
+.subscription-collection.is-editing{
 
     .subscription-bangumi {
         margin: 0 5px 0 -8px;

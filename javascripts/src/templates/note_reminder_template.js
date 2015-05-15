@@ -5,7 +5,7 @@
 /*
 Example:
 <div class="reminder-item">
-    <div class="reminder-bangumi">½¢¶ÓCollection</div>
+    <div class="reminder-bangumi">èˆ°é˜ŸCollection</div>
     <div class="reminder-date">04.27</div>
     <div class="reminder-handle"><a class="complete-mark" href="javascript:"><i class="icon-ok"></i></a></div>
 </div>

@@ -10,7 +10,7 @@ var autoprefixer = require('autoprefixer-core');
 var postcssSimpleVars = require("postcss-simple-vars");
 var postcssMixins = require("postcss-mixins");
 var postcssNested = require("postcss-nested");
-var postcssImport = require("postcss-import")
+var postcssImport = require("postcss-import");
 var sourcemaps = require("gulp-sourcemaps");
 var source = require('vinyl-source-stream');
 
@@ -52,7 +52,9 @@ gulp.task("browserify", function() {
         .pipe(gulp.dest("./javascripts/dest"));
 });
 
-gulp.task("reload-js", ["browserify"], reload);
+gulp.task("reload-js", ["browserify"], function(){
+
+});
 
 // Auto refresh.
 gulp.task("browser-sync", ["postcss", "browserify"], function() {
