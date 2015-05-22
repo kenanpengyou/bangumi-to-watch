@@ -4,6 +4,8 @@
 
 var Backbone = require("backbone");
 var _ = require("underscore");
+var $ = require("jquery");
+var dispatcher = require("../events/dispatcher");
 var i18n = require("../i18n/translation");
 
 var DayView = Backbone.View.extend({
@@ -38,7 +40,7 @@ var DayView = Backbone.View.extend({
             }
 
             dayName = i18n.day[item];
-            html += '<div class="' + className + '">' + dayName + '</div>';
+            html += '<div class="' + className + '" ' + 'data-index="' + index + '">' + dayName + '</div>';
         });
 
         this.$el.html(html);
@@ -48,7 +50,13 @@ var DayView = Backbone.View.extend({
         "click .day-item": "changeSelected"
     },
     changeSelected: function(event){
-        console.log("[changeSelected] event = ", event);
+        var index = $(event.target).data("index");
+
+        if(this.selected !== index){
+            this.selected = index;
+            this.render();
+            dispatcher.trigger("change:day", index);
+        }
     },
     getSelected: function(){
         return this.selected;

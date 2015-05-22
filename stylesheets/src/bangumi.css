@@ -5,6 +5,12 @@
 */
 
 /*------------------------------------*\
+    #VARIABLES
+\*------------------------------------*/
+
+$subscription-input-length: 30px;
+
+/*------------------------------------*\
     #MIXINS
 \*------------------------------------*/
 
@@ -181,9 +187,14 @@ html, body{
     background: #607d8b;
     color: #fff;
     font-size: 12px;
+    cursor: pointer;
 
     &.is-today{
-        background: #f74f4f;
+        background: #2b5a8b;
+    }
+
+    &.is-selected{
+        background: #f76463;
     }
 
     &:not(:last-of-type){
@@ -244,16 +255,14 @@ html, body{
 }
 .subscription-bangumi{
     margin-right: -3px;
-    transition: margin .25s ease;
 }
 .subscription-input{
     display: none;
-    width: 100%;
+    width: $subscription-input-length;
     margin: 0 -5px;
-    padding: 0 5px;
+    padding: 0 5px 1px 5px;
     border: none;
     background: none;
-    box-sizing: border-box;
 }
 .subscription-handle{
     margin-right: -13px;
@@ -262,9 +271,7 @@ html, body{
     color: #fff;
     font-size: 12px;
     opacity: 0;
-    transition: opacity .25s ease;
     cursor: default;
-    /* pointer-events: none; */
 }
 /* Could be edited in the line. */
 .subscription-item.is-editing{
@@ -276,6 +283,14 @@ html, body{
         display: inline-block;
     }
 }
+.subscription-collection.is-gradual{
+    .subscription-bangumi {
+        transition: margin .25s ease;
+    }
+    .delete-mark{
+        transition: opacity .25s ease;
+    }
+}
 /* When in this status, show the delete mark. */
 .subscription-collection.is-editing{
 
@@ -285,6 +300,5 @@ html, body{
     .delete-mark{
         opacity: 1;
         cursor: pointer;
-        /* pointer-events: auto; */
     }
 }

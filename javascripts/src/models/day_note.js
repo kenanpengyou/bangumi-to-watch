@@ -12,14 +12,28 @@ var DayNote = Backbone.Model.extend({
         records: []
     },
     addRecord: function(record){
-        this.records.push(record);
+        var records = this.get("records");
+        records.push(record);
+        return this;
     },
-    removeRecord: function(record){
-        var index = _.indexOf(this.records, record);
+    modifyRecord: function(originRecord, newRecord){
+        records = this.get("records");
+        index = _.indexOf(records, originRecord);
 
         if(index > -1){
-            this.records.splice(index, 1);
+            records.splice(index, 1, newRecord);
         }
+        console.log("[model.DayNote:modifyRecord] records = ", records);
+        return this;
+    },
+    removeRecord: function(record){
+        var records = this.get("records");
+        index = _.indexOf(records, record);
+
+        if(index > -1){
+            records.splice(index, 1);
+        }
+        return this;
     }
 });
 

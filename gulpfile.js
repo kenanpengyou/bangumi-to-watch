@@ -25,7 +25,7 @@ gulp.task("postcss", function(){
             browsers: ["Android 4.1", "iOS 7.1", "Chrome > 31", "ff > 31", "ie >= 10"]
         })];
 
-    return gulp.src(["./stylesheets/src/*.css**", "!./stylesheets/src/fontello.css"])
+    return gulp.src(["./stylesheets/src/*.css", "!./stylesheets/src/fontello.css"])
         .pipe(sourcemaps.init())
         .pipe(postcss(processors))
         .pipe(sourcemaps.write("."))
@@ -53,7 +53,7 @@ gulp.task("browserify", function() {
 });
 
 gulp.task("reload-js", ["browserify"], function(){
-
+    //reload();
 });
 
 // Auto refresh.
