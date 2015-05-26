@@ -23,7 +23,6 @@ var DayNote = Backbone.Model.extend({
         if(index > -1){
             records.splice(index, 1, newRecord);
         }
-        console.log("[model.DayNote:modifyRecord] records = ", records);
         return this;
     },
     removeRecord: function(record){

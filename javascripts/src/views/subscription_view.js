@@ -96,12 +96,16 @@ var SubscriptionView = Backbone.View.extend({
             properWidth = titleEl.width();
 
         this.createHelpEl();
-        target.find(".subscription-input").width(properWidth).val(titleText);
-        target.addClass("is-editing").find(".subscription-input").data("origin-record", titleText).select();
+
+        // Store the input el for upcoming usage.
+        this.editingInputEl = target.find(".subscription-input");
+        target.addClass("is-editing");
+        this.editingInputEl.width(properWidth).data("origin-record", titleText).val(titleText).focus();
     },
     prepareAdding: function(event){
         var newSubscription = null;
 
+        // Be sure that there is only one adding at a time.
         if(this.isAdding){
             return;
         }
@@ -113,8 +117,8 @@ var SubscriptionView = Backbone.View.extend({
         }));
 
         // Use the class name "is-new" to identify it.
-        newSubscription.addClass("is-editing is-new").appendTo(this.collectionEl);
-        newSubscription.find(".subscription-input").focus();
+        newSubscription.addClass("is-editing").appendTo(this.collectionEl);
+        this.editingInputEl = newSubscription.find(".subscription-input").addClass("is-new").focus();
         this.collectionEl.removeClass("is-gradual").removeClass("is-editing");
         this.isAdding = true;
     },
@@ -122,8 +126,12 @@ var SubscriptionView = Backbone.View.extend({
     // Auto increase the input width.
     helpInput: function(event){
         var inputEl = $(event.currentTarget),
+            keyCode = event.keyCode,
             value = inputEl.val(),
             valueWidth = this.helpEl.text(value).width(),
+
+            // A fixed width to leave some space.
+            spareWidth = this.config.inputSpareWidth,
             minWidth = this.config.minInputWidth,
             maxWidth = this.config.maxInputWidth,
             properWidth = 0;
@@ -135,16 +143,20 @@ var SubscriptionView = Backbone.View.extend({
         }
 
         if(properWidth !== 0){
-            inputEl.width(properWidth);
+            inputEl.width(properWidth + spareWidth);
         }
 
+        // If "enter" pressed, close this input.
+        if(keyCode === 13){
+            this.closeInput();
+        }
     },
 
     // Save input after blur.
-    closeInput: function(event){
-        var inputEl = $(event.currentTarget),
+    closeInput: function(){
+        var inputEl = this.editingInputEl,
             value = inputEl.val(),
-            isNew = inputEl.hasClass(".is-new"),
+            isNew = inputEl.hasClass("is-new"),
             originRecord = inputEl.data("origin-record") || "",
             model = this.dayNotes.at(this.selected);
 
@@ -159,10 +171,6 @@ var SubscriptionView = Backbone.View.extend({
             model.save();
         }
 
-        console.log("[subscriptionView:closeInput] isNew = ", isNew);
-        console.log("[subscriptionView:closeInput] originRecord = ", originRecord);
-
-
         this.isAdding = false;
         this.removeHelpEl();
         this.render();
@@ -173,6 +181,7 @@ var SubscriptionView = Backbone.View.extend({
     config: {
         minInputWidth: 30,
         maxInputWidth: 180,
+        inputSpareWidth: 10,
         helpFontSize: 12
     },
 
