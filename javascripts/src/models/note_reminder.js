@@ -8,7 +8,7 @@ var Backbone = require("backbone");
 var NoteReminder = Backbone.Model.extend({
     defaults: {
         title: "have a cup of tea",
-        date: "",
+        time: 0,
         done: false
     },
     done: function(){

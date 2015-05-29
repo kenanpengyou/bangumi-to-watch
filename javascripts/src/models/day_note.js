@@ -33,6 +33,11 @@ var DayNote = Backbone.Model.extend({
             records.splice(index, 1);
         }
         return this;
+    },
+
+    // Create a clone for the array "records".
+    getRecords: function(){
+        return _.map(this.get("records"), function(item){return item;});
     }
 });
 

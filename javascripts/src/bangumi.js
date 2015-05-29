@@ -14,11 +14,20 @@ Backbone.LocalStorage = require("backbone.localstorage");
 Backbone.$ = $;
 
 //--------------
-// Day note display.
+// Model and collections.
 //--------------
-var DayNoteDisplayView = require("./views/day_note_display_view");
-var dayNoteDisplayView = new DayNoteDisplayView();
+var TimeRecorder = require("./models/time_recorder");
+var NoteReminders = require("./collections/note_reminders");
+var DayNotes = require("./collections/day_notes");
+
+var timeRecorder = new TimeRecorder();
+var dayNotes = new DayNotes();
+var noteReminders = new NoteReminders(dayNotes, timeRecorder);
 
 //--------------
-// Note reminder.
+// Views
 //--------------
+var DayNoteDisplayView = require("./views/day_note_display_view");
+var NoteReminderView = require("./views/note_reminder.view");
+
+var dayNoteDisplayView = new DayNoteDisplayView(dayNotes);

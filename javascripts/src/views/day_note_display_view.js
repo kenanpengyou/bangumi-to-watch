@@ -10,9 +10,9 @@ var SubscriptionView = require("./subscription_view");
 
 var DayNoteDisplayView = Backbone.View.extend({
     el: "#day_note_display",
-    initialize: function(){
-        this.dayView = new DayView();
-        this.subscriptionView = new SubscriptionView(this.dayView.getSelected());
+    initialize: function(dayNotes){
+        this.dayView = new DayView(dayNotes);
+        this.subscriptionView = new SubscriptionView(dayNotes, this.dayView.getSelected());
     },
     render: function(){
         return this;

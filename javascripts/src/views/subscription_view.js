@@ -13,22 +13,9 @@ var subscriptionTemplate = require("../templates/subscription_template");
 var SubscriptionView = Backbone.View.extend({
     el: "#subscription_display",
 
-    initialize: function(index){
+    initialize: function(dayNotes, index){
 
-        this.dayNotes = new DayNotes();
-        this.dayNotes.fetch({reset: true});
-
-        console.log("[subscriptionView:initialize] this.dayNotes = ", this.dayNotes);
-
-        // dayNotes should have fixed 7 items, if not, initialize it.
-        if(this.dayNotes.length < 7){
-            _.each(this.days, function(day){
-               this.dayNotes.create({
-                   day: day
-               });
-            }, this);
-        }
-
+        this.dayNotes = dayNotes;
         this.selected = index;
         this.render();
 
@@ -177,7 +164,6 @@ var SubscriptionView = Backbone.View.extend({
     },
 
     // ------- custom below -------
-    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
     config: {
         minInputWidth: 30,
         maxInputWidth: 180,
