@@ -4,23 +4,24 @@
  */
 
 var Backbone = require("backbone");
+var _ = require("underscore");
 var NoteReminder = require("../models/note_reminder");
 Backbone.LocalStorage = require("backbone.localstorage");
 
 var NoteReminders = Backbone.Collection.extend({
     model: NoteReminder,
     localStorage: new Backbone.LocalStorage("bangumi-day-notes"),
-    initialize: function(dayNotes, timeRecorder){
-        this.fetch();
+    initialize: function(dayNotes, timeRecorders){
+        this.fetch({reset: true});
         this.dayNotes = dayNotes;
-        this.timeRecorder = timeRecorder;
+        this.timeRecorders = timeRecorders;
         this.generateItems();
     },
 
     // The key function of this app. To generate note reminders between "now" and "last".
     generateItems: function(){
-        var now = new Date().UTC(),
-            last = this.timeRecorder.get("last"),
+        var now = Date.now(),
+            last = this.timeRecorders.getLast(),
             dayInterval = 24 * 60 * 60 * 1000,
             dayNote = null,
             records = null,
@@ -28,11 +29,11 @@ var NoteReminders = Backbone.Collection.extend({
             date = null,
             day = 0;
 
+        console.log("[Collections:NoteReminders:generateItems] last = ", new Date(last).toLocaleString());
+        console.log("[Collections:NoteReminders:generateItems] now = ", new Date(now).toLocaleString());
+
         // If "last" is 0, it means it's the first time to launch this app.
         // Of course, no note reminders will be generated.
-        if(last === 0){
-            return this.timeRecorder.reset(now);
-        }
 
         // Review the period from "now" to "last", finish the work of each day.
         for(timestamp = last; timestamp < now; timestamp += dayInterval){
@@ -49,6 +50,12 @@ var NoteReminders = Backbone.Collection.extend({
                 });
             }, this);
         }
+    },
+
+    getUndoneItems: function(){
+        return this.where({
+            done: false
+        });
     }
 });
 

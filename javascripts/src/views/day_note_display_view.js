@@ -12,7 +12,7 @@ var DayNoteDisplayView = Backbone.View.extend({
     el: "#day_note_display",
     initialize: function(dayNotes){
         this.dayView = new DayView(dayNotes);
-        this.subscriptionView = new SubscriptionView(dayNotes, this.dayView.getSelected());
+        this.subscriptionView = new SubscriptionView(dayNotes);
     },
     render: function(){
         return this;

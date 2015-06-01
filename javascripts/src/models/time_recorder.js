@@ -11,19 +11,6 @@ var TimeRecorder = Backbone.Model.extend({
     defaults: {
         start: 0,
         last: 0
-    },
-    localStorage: new Backbone.LocalStorage("bangumi-time-recorder"),
-    initialize: function(){
-        this.fetch();
-    },
-    update: function(timestamp){
-        this.set("last", timestamp);
-        return this;
-    },
-    reset: function(timestamp){
-        this.set("last", timestamp);
-        this.set("start", timestamp);
-        return this;
     }
 });
 

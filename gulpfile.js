@@ -31,19 +31,22 @@ gulp.task("postcss", function(){
         .pipe(sourcemaps.write("."))
         .pipe(gulp.dest("./stylesheets/dest"))
         .pipe(filter("*.css"))
-        .pipe(reload({stream: true}))
+        .pipe(reload({stream: true}));
 });
 
 // Javascript process.
 gulp.task("browserify", function() {
-    var uglifyConfig = {
+    var b = browserify({
+        entries: "./javascripts/src/bangumi.js",
+        debug: true
+    }),
+        uglifyConfig = {
         mangle: false,
         compress: false,
         preserveComments: "all"
     };
 
-    return browserify("./javascripts/src/bangumi.js")
-        .bundle()
+    return b.bundle()
         .pipe(source("bangumi.js"))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))

@@ -5,7 +5,6 @@
 var Backbone = require("backbone");
 var _ = require("underscore");
 var $ = require("jquery");
-var dispatcher = require("../events/dispatcher");
 var DayNotes = require("../collections/day_notes");
 var subscriptionOverviewTemplate = require("../templates/subscription_overview_template");
 var subscriptionTemplate = require("../templates/subscription_template");
@@ -13,13 +12,12 @@ var subscriptionTemplate = require("../templates/subscription_template");
 var SubscriptionView = Backbone.View.extend({
     el: "#subscription_display",
 
-    initialize: function(dayNotes, index){
+    initialize: function(dayNotes){
 
         this.dayNotes = dayNotes;
-        this.selected = index;
         this.render();
 
-        dispatcher.on("change:day", this.changeSelected, this);
+        this.dayNotes.on("change:day", this.changeSelected, this);
     },
     templateOverview: _.template(subscriptionOverviewTemplate),
     templateItem:  _.template(subscriptionTemplate),
@@ -27,7 +25,7 @@ var SubscriptionView = Backbone.View.extend({
     // When rendering, only the given index one (in collection "this.dayNotes") will be used.
     render: function(){
         var html = "",
-        model = this.dayNotes.at(this.selected),
+        model = this.dayNotes.getSelectedItem(),
         records = model.get("records");
 
         // Two parts, overview and subscription items.
@@ -71,7 +69,7 @@ var SubscriptionView = Backbone.View.extend({
     },
     deleteItem: function(event){
         var targetRecord = $(event.currentTarget).data("record"),
-            model = this.dayNotes.at(this.selected);
+            model = this.dayNotes.getSelectedItem();
 
         model.removeRecord(targetRecord).save();
         this.render();
@@ -145,7 +143,7 @@ var SubscriptionView = Backbone.View.extend({
             value = inputEl.val(),
             isNew = inputEl.hasClass("is-new"),
             originRecord = inputEl.data("origin-record") || "",
-            model = this.dayNotes.at(this.selected);
+            model = this.dayNotes.getSelectedItem();
 
         if($.trim(value) !== ""){
 
@@ -173,7 +171,6 @@ var SubscriptionView = Backbone.View.extend({
 
     // Change selected day.
     changeSelected: function(index){
-        this.selected = index;
         this.render();
     },
 

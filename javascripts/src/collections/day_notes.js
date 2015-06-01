@@ -13,7 +13,7 @@ var DayNotes = Backbone.Collection.extend({
     model: DayNote,
     localStorage: new Backbone.LocalStorage("bangumi-day-notes"),
     initialize: function(){
-        var today = this.mapDay(new Date().getDay());
+        this.today = this.mapDay(new Date().getDay());
 
         this.fetch({reset: true});
 
@@ -27,18 +27,14 @@ var DayNotes = Backbone.Collection.extend({
         }
 
         // Today will be the default selected.
-        this.selected = today;
+        this.selected = this.today;
     },
 
     // ------- custom below -------
 
     // Get current selected day note.
-    getSelected: function(){
+    getSelectedItem: function(){
         return this.at(this.selected);
-    },
-
-    setSelected: function(index){
-        
     },
 
     // Constant day names in a week.
