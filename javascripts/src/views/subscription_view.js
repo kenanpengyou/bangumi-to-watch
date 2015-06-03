@@ -12,11 +12,11 @@ var subscriptionTemplate = require("../templates/subscription_template");
 var SubscriptionView = Backbone.View.extend({
     el: "#subscription_display",
 
-    initialize: function(dayNotes){
+    initialize: function(){
 
-        this.dayNotes = dayNotes;
+        // Use a more intelligible alias.
+        this.dayNotes = this.collection;
         this.render();
-
         this.dayNotes.on("change:day", this.changeSelected, this);
     },
     templateOverview: _.template(subscriptionOverviewTemplate),

@@ -10,11 +10,11 @@ Backbone.LocalStorage = require("backbone.localstorage");
 
 var NoteReminders = Backbone.Collection.extend({
     model: NoteReminder,
-    localStorage: new Backbone.LocalStorage("bangumi-day-notes"),
-    initialize: function(dayNotes, timeRecorders){
+    localStorage: new Backbone.LocalStorage("bangumi-note-reminders"),
+    initialize: function(models, options){
         this.fetch({reset: true});
-        this.dayNotes = dayNotes;
-        this.timeRecorders = timeRecorders;
+        this.dayNotes = options.dayNotes;
+        this.timeRecorders = options.timeRecorders;
         this.generateItems();
     },
 
@@ -29,26 +29,31 @@ var NoteReminders = Backbone.Collection.extend({
             date = null,
             day = 0;
 
-        console.log("[Collections:NoteReminders:generateItems] last = ", new Date(last).toLocaleString());
-        console.log("[Collections:NoteReminders:generateItems] now = ", new Date(now).toLocaleString());
+        tempFlag = false;
 
-        // If "last" is 0, it means it's the first time to launch this app.
-        // Of course, no note reminders will be generated.
+        // Be aware of that this app may be launched quite a few times within the same day, but the note reminders
+        // should have no duplicate. Therefore, it's grateful to update only when the interval is more than 1 day.
+        if(tempFlag || now - last > dayInterval){
 
-        // Review the period from "now" to "last", finish the work of each day.
-        for(timestamp = last; timestamp < now; timestamp += dayInterval){
-            date = new Date(timestamp);
-            day = date.getDay();
-            dayNote = this.dayNotes.findByDay(day);
-            records = dayNote.getRecords();
+            // Review the period from "now" to "last", finish the work of each day.
+            for(timestamp = last; timestamp < now; timestamp += dayInterval){
+                date = new Date(timestamp);
+                day = date.getDay();
+                dayNote = this.dayNotes.findByDay(day);
+                records = dayNote.getRecords();
 
-            // Each record will create a note reminder.
-            _.each(records, function(record){
-                this.create({
-                    title: record,
-                    time: timestamp
-                });
-            }, this);
+                // Each record will create a note reminder.
+                _.each(records, function(record){
+
+                    this.create({
+                        title: record,
+                        time: timestamp
+                    });
+                }, this);
+            }
+
+            // After all finished, update "last".
+            this.timeRecorders.update(now);
         }
     },
 

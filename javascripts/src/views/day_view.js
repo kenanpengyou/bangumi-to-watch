@@ -10,9 +10,10 @@ var i18n = require("../i18n/translation");
 var DayView = Backbone.View.extend({
     el: "#day_collection",
 
-    initialize: function(dayNotes){
-        this.dayNotes = dayNotes;
-        console.log("[DayView:initialize] this.dayNotes.today = ", this.dayNotes.today);
+    initialize: function(){
+
+        // Use a more intelligible alias.
+        this.dayNotes = this.collection;
         this.render();
     },
     render: function(){

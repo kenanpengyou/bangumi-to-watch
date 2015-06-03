@@ -15,6 +15,6 @@ module.exports = [
     '<div class="reminder-item">',
         '<div class="reminder-bangumi"><%= title %></div>',
         '<div class="reminder-date"><%= date %></div>',
-        '<div class="reminder-handle"><a class="complete-mark" href="javascript:"><i class="icon-ok"></i></a></div>',
+        '<div class="reminder-handle"><a class="complete-mark" href="javascript:" data-id="<%= id %>"><i class="icon-ok"></i></a></div>',
     '</div>'
 ].join("\n");

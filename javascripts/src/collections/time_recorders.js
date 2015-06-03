@@ -17,8 +17,6 @@ var TimeRecorders = Backbone.Collection.extend({
 
         this.fetch({reset: true});
 
-        console.log("[Collection:TimeRecorders:initialize] this = ", this);
-
         // If there is not a time recorder yet, create one.
         if(this.length < 1){
             now = Date.now();
@@ -39,13 +37,13 @@ var TimeRecorders = Backbone.Collection.extend({
     },
     update: function(timestamp){
         var target = this.at(0);
-        target.set("last", timestamp);
+        target.set("last", timestamp).save();
         return this;
     },
     restart: function(timestamp){
         var target = this.at(0);
-        target.set("last", timestamp);
-        target.set("start", timestamp);
+        target.set("last", timestamp).save();
+        target.set("start", timestamp).save();
         return this;
     }
 });
