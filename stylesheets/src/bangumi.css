@@ -1,14 +1,19 @@
 /*
 * bangumi.css
 * by liangzhu ( http://acgtofe.com )
-* date 2015-04-22
+* date 2015-06-04
 */
 
 /*------------------------------------*\
     #VARIABLES
 \*------------------------------------*/
 
+$wrapper-width: 980px;
 $subscription-input-length: 30px;
+$theme-color-a: #6aaac9;
+$theme-color-b: #4676a8;
+$theme-color-c: #424c57;
+$tap-color: #d9effa;
 
 /*------------------------------------*\
     #MIXINS
@@ -29,51 +34,77 @@ $subscription-input-length: 30px;
 @import "fontello.css";
 
 /*------------------------------------*\
-    #BASE SKIN
+    #BASE AND SKIN
 \*------------------------------------*/
 
+a, img {
+    -webkit-touch-callout: none;
+}
+html, body{
+    user-select: none;
+}
 body{
     font-family: verdana, "Microsoft Yahei", arial, sans-serif;
+    font-size: 14px;
+}
+div, a{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
 }
 a{
-    color: #7571b4;
+
+    color: $theme-color-b;
 }
+
+/*------------------------------------*\
+    #LAYOUT
+\*------------------------------------*/
 
 /*------------------------------------*\
     #HEADER
 \*------------------------------------*/
 .app-header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 42px;
-    background: #455a64;
+    background: $theme-color-a;
 }
 .header-title{
     color: #fff;
     font-size: 18px;
 }
-.header-handle{
-    position: absolute;
-    top: 0;
-
-    &.handle-right {
-        right: 0;
+.header-control{
+    a{
+        color: #fff;
     }
 }
-.handle-help{
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin: 6px 6px 0 0;
-    border-radius: 50%;
-    background: #607d8b;
-    color: #fff;
-    font-size: 18px;
+.control-help{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    font-size: 24px;
     text-align: center;
-    line-height: 30px;
+
+    &:active{
+        background: color($theme-color-a l(+10%));
+    }
+}
+.control-reset{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    font-size: 20px;
+    text-align: center;
+
+    &:active{
+        background: color($theme-color-a l(+10%));
+    }
 }
 
 /*------------------------------------*\
@@ -83,19 +114,22 @@ html, body{
     height: 100%;
 }
 .frame-container{
-    max-width: 960px;
     height: 100%;
-    margin: 0 auto;
-    padding: 42px 10px 0 10px;
-    overflow: auto;
+    padding-top: 42px;
     box-sizing: border-box;
+}
+.app-main{
+    min-height: 100%;
+    margin-bottom: -60px;
 }
 
 /*------------------------------------*\
     #FOOTER
 \*------------------------------------*/
 .app-footer{
-    padding: 20px 10px;
+    height: 60px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 .copyright{
     font-size: 12px;
@@ -109,63 +143,61 @@ html, body{
     #MAIN
 \*------------------------------------*/
 
-/* base note */
-.base-note{
-    padding: 10px 0 0 0;
-    font-size: 12px;
+/* time note */
+.time-note{
+    margin-bottom: 10px;
+    padding: 10px 0 0 10px;
+    color: #333;
 
     &:before {
         display: inline-block;
         width: 6px;
-        height: 14px;
-        margin-right: 5px;
-        background: #455a64;
-        vertical-align: text-bottom;
+        height: 22px;
+        margin-right: 10px;
+        background: $theme-color-b;
+        vertical-align: middle;
         content: "";
     }
 }
 
 /* reminder */
 .reminder-collection{
-    @mixin clearfix;
-    margin-bottom: 10px;
-    padding: 10px 0 0 0;
+
 }
 .reminder-item{
     display: flex;
     align-items: center;
-    float: left;
-    margin-bottom: 10px;
-    padding: 5px;
+    padding: 5px 10px;
     border-bottom: 1px dotted #7571b4;
-    font-size: 12px;
 
-    &:not(:last-of-type){
-        margin-right: 10px;
+    &:hover,
+    &:active{
+        background: #d9effa;
     }
 }
-.reminder-bangumi{
-    padding: 2px 4px;
-    border-radius: 2px;
-    background: #727272;
-    color: #fff;
-}
 .reminder-date{
-    margin-left: 5px;
-    padding: 1px 2px;
-    border-radius: 1px;
-    color: #666;
-    font-size: 10px;
+    margin-right: 10px;
+    color: $theme-color-b;
 }
-.reminder-handle{
-    margin-left: 5px;
+.reminder-bangumi{
+    margin-right: 10px;
+    flex: 1;
+    color: #333;
 }
 .complete-mark{
-    padding: 1px;
-    border-radius: 50%;
-    background: #b6b6b6;
-    color: #fff;
-    font-size: 12px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 33px;
+    color: #666;
+    font-size: 18px;
+    text-align: center;
+
+    .icon-check{
+        position: relative;
+        left: 1px;
+    }
 }
 
 /* day note display */
@@ -308,4 +340,50 @@ html, body{
         opacity: 1;
         cursor: pointer;
     }
+}
+
+/*------------------------------------*\
+    #RESPONSIVE DESIGN
+\*------------------------------------*/
+
+/* The css width of iPad air 2 is 768 (portrait). */
+@media (max-width: 768px) {
+    .wrapper-header{
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .control-help{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .control-reset{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .wrapper{
+        max-width: $wrapper-width;
+        margin: 0 auto;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .wrapper-header{
+        display: flex;
+        height: 100%;
+    }
+    .header-title{
+        display: flex;
+        flex: 1;
+        align-items: center;
+    }
+    .header-control{
+        margin-right: -10px;
+    }
+
 }

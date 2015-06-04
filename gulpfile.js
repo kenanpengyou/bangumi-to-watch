@@ -11,6 +11,7 @@ var postcssSimpleVars = require("postcss-simple-vars");
 var postcssMixins = require("postcss-mixins");
 var postcssNested = require("postcss-nested");
 var postcssImport = require("postcss-import");
+var colorFunction = require("postcss-color-function");
 var sourcemaps = require("gulp-sourcemaps");
 var source = require('vinyl-source-stream');
 
@@ -21,6 +22,7 @@ gulp.task("postcss", function(){
         postcssMixins,
         postcssSimpleVars,
         postcssNested,
+        colorFunction(),
         autoprefixer({
             browsers: ["Android 4.1", "iOS 7.1", "Chrome > 31", "ff > 31", "ie >= 10"]
         })];
@@ -66,7 +68,8 @@ gulp.task("browser-sync", ["postcss", "browserify"], function() {
         server: {
             baseDir: "./"
         },
-        notify: true
+        notify: true,
+        ghostMode: false
     });
 
     gulp.watch("./javascripts/src/**/*.js", ["reload-js"]);

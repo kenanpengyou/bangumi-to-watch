@@ -5,7 +5,6 @@
 var Backbone = require("backbone");
 var _ = require("underscore");
 var $ = require("jquery");
-var i18n = require("../i18n/translation");
 
 var DayView = Backbone.View.extend({
     el: "#day_collection",
@@ -38,9 +37,9 @@ var DayView = Backbone.View.extend({
                 className += " " + "is-selected";
             }
 
-            dayName = i18n.day[item];
+            dayName = this.dayNotes.getDayName(item);
             html += '<div class="' + className + '" ' + 'data-index="' + index + '">' + dayName + '</div>';
-        });
+        }, this);
 
         this.$el.html(html);
         return this;

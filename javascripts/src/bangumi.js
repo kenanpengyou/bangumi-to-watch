@@ -28,14 +28,16 @@ var noteReminders = new NoteReminders(null, {
 });
 
 //--------------
-// Views
+// Main Views
 //--------------
 var DayNoteDisplayView = require("./views/day_note_display_view");
-var NoteReminderView = require("./views/note_reminder_view");
+var MainRemindersView = require("./views/main_reminders_view");
 
 var dayNoteDisplayView = new DayNoteDisplayView({
     collection: dayNotes
 });
-var noteReminderView = new NoteReminderView({
-    collection: noteReminders
+var mainRemindersView = new MainRemindersView({
+    collection: noteReminders,
+    dayNotes: dayNotes
 });
+

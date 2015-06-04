@@ -9,16 +9,24 @@
 </head>
 <body>
 <header class="app-header">
-    <div class="header-title">bangumi to watch</div>
-    <div class="header-handle handle-right"><a class="handle-help" href="javascript:"><i class="icon-help"></i></a></div>
+    <div class="wrapper wrapper-header">
+        <div id="app_title" class="header-title">ぺこ的节目单</div>
+        <div class="header-control">
+            <a class="control-help" href="javascript:"><i class="icon-help"></i></a>
+            <a class="control-reset" href="javascript:"><i class="icon-off"></i></a>
+        </div>
+    </div>
 </header>
-<div class="frame-container">
+<div class="frame-container wrapper">
     <div class="app-main">
-        <div class="base-note">2015.04.27 周一</div>
-        <div id="reminder_collection" class="reminder-collection"></div>
-        <div id="day_note_display" class="day-note-display">
-            <div id="day_collection" class="day-collection"></div>
-            <div id="subscription_display" class="subscription-display"></div>
+        <div id="main_reminders" class="app-view">
+            <div id="reminder_collection" class="reminder-collection"></div>
+        </div>
+        <div id="main_program" class="app-view">
+            <div id="day_note_display" class="day-note-display">
+                <div id="day_collection" class="day-collection"></div>
+                <div id="subscription_display" class="subscription-display"></div>
+            </div>
         </div>
     </div>
     <footer class="app-footer">
