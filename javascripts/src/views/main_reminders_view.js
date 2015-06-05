@@ -5,6 +5,7 @@
 var Backbone = require("backbone");
 var _ = require("underscore");
 var $ = require("jquery");
+var dispatcher = require("../events/dispatcher");
 var NoteReminderView = require("./note_reminder_view");
 
 var MainReminders = Backbone.View.extend({
@@ -15,6 +16,12 @@ var MainReminders = Backbone.View.extend({
         });
         this.dayNotes = options.dayNotes;
         this.render();
+
+        if(options.hide){
+            this.hideEl();
+        }
+        dispatcher.on("switch:program", this.hideEl, this);
+        dispatcher.on("switch:reminders", this.showEl, this);
     },
     render: function(){
         var timeNoteEl = this.createTimeNoteEl();
@@ -24,6 +31,14 @@ var MainReminders = Backbone.View.extend({
     },
 
     // ------- custom below -------
+
+    showEl: function(){
+        this.$el.show();
+    },
+
+    hideEl: function(){
+        this.$el.hide();
+    },
 
     // Create this element:
     // <div class="time-note">2015.04.27 周一</div>

@@ -13,6 +13,7 @@ module.exports = {
         Thursday: "周四",
         Friday: "周五",
         Saturday: "周六",
-        Sunday: "周日"
+        Sunday: "周日",
+        today: "今天"
     }
 };

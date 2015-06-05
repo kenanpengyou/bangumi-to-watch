@@ -1,5 +1,6 @@
 /*
 * bangumi.css
+* This is a css file for PostCSS.
 * by liangzhu ( http://acgtofe.com )
 * date 2015-06-04
 */
@@ -25,6 +26,15 @@ $tap-color: #d9effa;
         clear: both;
         content: " ";
     }
+}
+@define-mixin program-control{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: $theme-color-a;
+    color: #fff;
 }
 
 /*------------------------------------*\
@@ -68,6 +78,7 @@ a{
     width: 100%;
     height: 42px;
     background: $theme-color-a;
+    z-index: 50;
 }
 .header-title{
     color: #fff;
@@ -88,6 +99,7 @@ a{
     font-size: 24px;
     text-align: center;
 
+    &:hover,
     &:active{
         background: color($theme-color-a l(+10%));
     }
@@ -102,6 +114,7 @@ a{
     font-size: 20px;
     text-align: center;
 
+    &:hover,
     &:active{
         background: color($theme-color-a l(+10%));
     }
@@ -114,6 +127,7 @@ html, body{
     height: 100%;
 }
 .frame-container{
+    position: relative;
     height: 100%;
     padding-top: 42px;
     box-sizing: border-box;
@@ -143,6 +157,42 @@ html, body{
     #MAIN
 \*------------------------------------*/
 
+/* view switch */
+.view-switch{
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    perspective: 300px;
+    cursor: pointer;
+}
+.switch-card{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .5s;
+
+    .card-figure{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: $theme-color-c;
+        color: #fff;
+        font-size: 24px;
+        backface-visibility: hidden;
+    }
+    .card-back{
+        transform: rotateY(180deg);
+    }
+}
+.view-switch.is-flipped .switch-card{
+    transform: rotateY(180deg);
+}
+
 /* time note */
 .time-note{
     margin-bottom: 10px;
@@ -161,9 +211,6 @@ html, body{
 }
 
 /* reminder */
-.reminder-collection{
-
-}
 .reminder-item{
     display: flex;
     align-items: center;
@@ -178,11 +225,13 @@ html, body{
 .reminder-date{
     margin-right: 10px;
     color: $theme-color-b;
+    cursor: default;
 }
 .reminder-bangumi{
     margin-right: 10px;
     flex: 1;
     color: #333;
+    cursor: default;
 }
 .complete-mark{
     display: inline-flex;
@@ -200,86 +249,74 @@ html, body{
     }
 }
 
-/* day note display */
-.day-note-display{
-    margin-bottom: 10px;
-}
-
 /* day */
 .day-collection{
-    margin-bottom: 10px;
-    padding: 10px 0 0 0;
-    @mixin clearfix;
+    display: flex;
+    padding: 15px 0;
 }
 .day-item{
-    float: left;
-    margin-bottom: 10px;
-    padding: 5px 20px;
-    border-radius: 2px;
-    background: #607d8b;
-    color: #fff;
-    font-size: 12px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+    color: #333;
+    font-size: 14px;
     cursor: pointer;
-
-    &.is-today{
-        background: #2b5a8b;
-    }
+    transition: background .5s, color .5s;
 
     &.is-selected{
-        background: #f76463;
-    }
-
-    &:not(:last-of-type){
-        margin-right: 10px;
+        background: $theme-color-b;
+        color: #fff;
     }
 }
 
 /* subscription */
 .subscription-overview{
-    margin-bottom: 10px;
+
 }
 .day-bangumi-count{
-    display: inline-block;
-    padding: 4px;
-    border-radius: 2px;
-    background: #b6b6b6;
-    color: #fff;
-    font-size: 12px;
-    vertical-align: middle;
+    @mixin program-control;
+    font-size: 16px;
 }
 .subscription-edit{
-    display: inline-block;
-    margin-left: 10px;
-    padding: 3px 1px 3px 3px;
-    border-radius: 2px;
-    background: #b6b6b6;
-    color: #fff;
-    font-size: 14px;
-    vertical-align: middle;
+    @mixin program-control;
+    margin-left: 20px;
+    font-size: 16px;
+
+    &:hover,
+    &:active{
+        background: color($theme-color-a l(+10%));
+    }
 }
 .subscription-add{
-    display: inline-block;
-    margin-left: 10px;
-    padding: 3px;
-    border-radius: 2px;
-    background: #b6b6b6;
-    color: #fff;
-    font-size: 14px;
-    vertical-align: middle;
+    @mixin program-control;
+    margin-left: 20px;
+    font-size: 16px;
+
+    &:hover,
+    &:active{
+        background: color($theme-color-a l(+10%));
+    }
 }
 .subscription-collection{
     @mixin clearfix;
+    padding: 15px 0;
 }
 .subscription-item{
     display: flex;
     align-items: center;
     float: left;
     margin-bottom: 10px;
-    padding: 5px 15px 5px 15px;
-    border-radius: 2px;
-    background: #455a64;
+    padding: 5px 15px;
+    background: $theme-color-b;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
+
+    &:hover,
+    &:active{
+        background: color($theme-color-b l(+10%));
+    }
 
     &:not(:last-of-type){
         margin-right: 10px;
@@ -288,6 +325,7 @@ html, body{
 .subscription-bangumi{
     height: 17px;
     margin-right: -3px;
+    cursor: default;
 }
 .subscription-input{
     display: none;
@@ -364,6 +402,16 @@ html, body{
         top: 0;
         left: 0;
     }
+    .day-item{
+        border-top: 2px solid $theme-color-b;
+        border-bottom: 2px solid $theme-color-b;
+    }
+    .day-item:not(:last-of-type){
+        border-right: 2px solid $theme-color-b;
+    }
+    .subscription-display{
+        padding: 0 10px;
+    }
 }
 
 @media (min-width: 769px) {
@@ -372,6 +420,7 @@ html, body{
         margin: 0 auto;
         padding-left: 10px;
         padding-right: 10px;
+        box-sizing: border-box;
     }
     .wrapper-header{
         display: flex;
@@ -381,9 +430,51 @@ html, body{
         display: flex;
         flex: 1;
         align-items: center;
+        padding-left: 5px;
     }
     .header-control{
         margin-right: -10px;
     }
+    .reminder-collection{
+        @mixin clearfix;
+    }
+    .reminder-item{
+        float: left;
+        margin-bottom: 10px;
 
+        &:not(:last-of-type){
+            margin-right: 10px;
+        }
+    }
+    .day-collection{
+        max-width: 768px;
+    }
+    .day-item{
+        border-top: 2px solid $theme-color-b;
+        border-bottom: 2px solid $theme-color-b;
+        border-right: 2px solid $theme-color-b;
+    }
+    .day-item:first-of-type{
+        border-left: 2px solid $theme-color-b;
+        border-radius: 3px 0 0 3px;
+    }
+    .day-item:last-of-type{
+        border-radius: 0 3px 3px 0;
+    }
+}
+
+/* The width of custom center wrapper is 980. */
+@media (max-width: 980px) {
+    .view-switch{
+        right: 10px;
+        bottom: 10px;
+    }
+}
+
+@media (min-width: 981px) {
+    .view-switch{
+        margin-left: 440px;
+        left: 50%;
+        bottom: 10px;
+    }
 }

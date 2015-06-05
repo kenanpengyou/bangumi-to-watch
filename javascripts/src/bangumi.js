@@ -30,14 +30,17 @@ var noteReminders = new NoteReminders(null, {
 //--------------
 // Main Views
 //--------------
-var DayNoteDisplayView = require("./views/day_note_display_view");
+var MainProgramView = require("./views/main_program_view");
 var MainRemindersView = require("./views/main_reminders_view");
+var ControlSwitchView = require("./views/control_switch_view");
 
-var dayNoteDisplayView = new DayNoteDisplayView({
-    collection: dayNotes
+var mainProgramView = new MainProgramView({
+    collection: dayNotes,
+    hide: true
 });
 var mainRemindersView = new MainRemindersView({
     collection: noteReminders,
     dayNotes: dayNotes
 });
+var controlSwtichView = new ControlSwitchView();
 

@@ -5,6 +5,7 @@
 var Backbone = require("backbone");
 var _ = require("underscore");
 var $ = require("jquery");
+var i18n = require("../i18n/translation");
 
 var DayView = Backbone.View.extend({
     el: "#day_collection",
@@ -14,6 +15,7 @@ var DayView = Backbone.View.extend({
         // Use a more intelligible alias.
         this.dayNotes = this.collection;
         this.render();
+        this.initToday();
     },
     render: function(){
 
@@ -42,22 +44,49 @@ var DayView = Backbone.View.extend({
         }, this);
 
         this.$el.html(html);
+
+        this.dayEls = this.$(".day-item");
+
         return this;
     },
     events: {
-        "click .day-item": "changeSelected"
+        "click .day-item": "changeSelected",
+        "mouseenter .is-today": "displayToday",
+        "mouseleave .is-today": "displayToday"
     },
     changeSelected: function(event){
         var index = $(event.target).data("index");
 
         if(this.dayNotes.selected !== index){
             this.dayNotes.selected = index;
-            this.render();
+            this.dayEls.removeClass("is-selected").eq(index).addClass("is-selected");
             this.dayNotes.trigger("change:day");
         }
-    }
+    },
+    displayToday: function(event){
+        var target = $(event.currentTarget);
+
+        switch(event.type){
+            case "mouseenter":
+                target.text(target.data("originName"));
+                break;
+            case "mouseleave":
+                target.text(target.data("todayName"));
+        }
+    },
 
     // ------- custom below -------
+
+    // Display the correct "today" name.
+    initToday: function(){
+        var todayEl = this.$(".is-today"),
+            originName = todayEl.text(),
+            todayName = i18n.day["today"];
+
+        todayEl.data("originName", originName)
+            .data("todayName", todayName)
+            .text(todayName);
+    }
 
 });
 
