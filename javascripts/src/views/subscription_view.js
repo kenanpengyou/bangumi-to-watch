@@ -5,6 +5,8 @@
 var Backbone = require("backbone");
 var _ = require("underscore");
 var $ = require("jquery");
+var i18n = require("../i18n/translation");
+var dispatcher = require("../events/dispatcher");
 var DayNotes = require("../collections/day_notes");
 var subscriptionOverviewTemplate = require("../templates/subscription_overview_template");
 var subscriptionTemplate = require("../templates/subscription_template");
@@ -26,7 +28,8 @@ var SubscriptionView = Backbone.View.extend({
     render: function(){
         var html = "",
         model = this.dayNotes.getSelectedItem(),
-        records = model.get("records");
+        records = model.get("records"),
+        isEditing = this.collectionEl ? this.collectionEl.hasClass(".is-editing") : false;
 
         // Two parts, overview and subscription items.
         html += this.templateOverview({
@@ -51,6 +54,10 @@ var SubscriptionView = Backbone.View.extend({
         // Leave a reference to some key elements.
         this.collectionEl = this.$(".subscription-collection");
 
+        if(isEditing){
+            this.collectionEl.addClass("is-editing");
+        }
+
         // Reset some status.
         this.isAdding = false;
 
@@ -68,11 +75,19 @@ var SubscriptionView = Backbone.View.extend({
         this.collectionEl.addClass("is-gradual").toggleClass("is-editing");
     },
     deleteItem: function(event){
-        var targetRecord = $(event.currentTarget).data("record"),
-            model = this.dayNotes.getSelectedItem();
+        var target = $(event.currentTarget),
+            targetRecord = target.data("record"),
+            itemEl = target.parents(".subscription-item"),
+            model = this.dayNotes.getSelectedItem(),
+            confirmFn = function(){
+                this.executeDelete(itemEl, model, targetRecord);
+            };
 
-        model.removeRecord(targetRecord).save();
-        this.render();
+        dispatcher.trigger("layer:confirm", {
+           textMain: i18n.control.deleteMain,
+           fn: confirmFn,
+           context: this
+        });
     },
     modifyItem: function(event){
         var target = $(event.currentTarget),
@@ -184,6 +199,14 @@ var SubscriptionView = Backbone.View.extend({
     },
     removeHelpEl: function(){
         this.helpEl.remove();
+    },
+    executeDelete: function(itemEl, model, record){
+        var that = this;
+
+        itemEl.fadeOut("slow", function(){
+            model.removeRecord(record).save();
+            that.render();
+        });
     }
 });
 

@@ -5,6 +5,7 @@
 var Backbone = require("backbone");
 var _ = require("underscore");
 var $ = require("jquery");
+var dispatcher = require("../events/dispatcher");
 var noteReminderTemplate = require("../templates/note_reminder_template");
 
 var NoteReminderView = Backbone.View.extend({
@@ -15,6 +16,8 @@ var NoteReminderView = Backbone.View.extend({
         // Alias.
         this.noteReminders = this.collection;
         this.render();
+
+        dispatcher.on("app:reset", this.reset, this);
     },
     template: _.template(noteReminderTemplate),
 
@@ -44,12 +47,16 @@ var NoteReminderView = Backbone.View.extend({
     },
     completeOne: function(event){
         var target = $(event.currentTarget),
+            itemEl = target.parents(".reminder-item"),
             targetId = target.data("id"),
-            model = this.noteReminders.get(targetId);
+            model = this.noteReminders.get(targetId),
+            that = this;
 
-        console.log("[completeOne] targetId = ", targetId);
-        model.done();
-        this.render();
+        target.addClass("is-checked");
+        itemEl.fadeOut("slow", function(){
+            model.done();
+            that.render();
+        });
     },
 
     // ------- custom below -------
@@ -66,8 +73,11 @@ var NoteReminderView = Backbone.View.extend({
         date = date < 10 ? "0" + date : date;
         string = month + "." + date;
         return string;
-    }
+    },
 
+    reset: function(){
+        this.noteReminders.clearAll();
+    }
 });
 
 module.exports = NoteReminderView;

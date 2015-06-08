@@ -35,6 +35,7 @@ $tap-color: #d9effa;
     height: 30px;
     background: $theme-color-a;
     color: #fff;
+    vertical-align: middle;
 }
 
 /*------------------------------------*\
@@ -81,6 +82,9 @@ a{
     z-index: 50;
 }
 .header-title{
+    display: flex;
+    align-items: center;
+    height: 100%;
     color: #fff;
     font-size: 18px;
 }
@@ -141,8 +145,10 @@ html, body{
     #FOOTER
 \*------------------------------------*/
 .app-footer{
+    display: flex;
+    align-items: center;
     height: 60px;
-    padding: 10px;
+    padding: 0 10px;
     box-sizing: border-box;
 }
 .copyright{
@@ -150,6 +156,60 @@ html, body{
 
     a{
         color: inherit;
+    }
+}
+
+/*------------------------------------*\
+    #LAYER
+\*------------------------------------*/
+
+.app-layer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    left: 0;
+    top: 0;
+    z-index: 150;
+
+    .frame-box{
+        width: 240px;
+        border-radius: 3px;
+        background: #fff;
+    }
+    .box-main{
+        padding: 20px;
+        text-align: center;
+    }
+    .note-text{
+        color: #333;
+    }
+    .note-sub-text{
+        padding-top: 5px;
+        color: #999;
+        font-size: 12px;
+    }
+    .box-submit{
+        display: flex;
+    }
+    .submit-link{
+        flex: 1;
+        padding: 10px 0;
+        border-top: 1px solid #ccc;
+        box-sizing: border-box;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover,
+        &:active{
+            background: #d9effa;
+        }
+    }
+    .submit-no{
+        border-right: 1px solid #ccc;
     }
 }
 
@@ -244,8 +304,15 @@ html, body{
     text-align: center;
 
     .icon-check{
+        display: none;
         position: relative;
         left: 1px;
+    }
+    &.is-checked .icon-check{
+        display: inline-block;
+    }
+    &.is-checked .icon-check-empty{
+        display: none;
     }
 }
 
@@ -323,14 +390,16 @@ html, body{
     }
 }
 .subscription-bangumi{
-    height: 17px;
+    display: flex;
+    align-items: center;
+    height: 20px;
     margin-right: -3px;
     cursor: default;
 }
 .subscription-input{
     display: none;
     width: $subscription-input-length;
-    height: 16px;
+    height: 19px;
     margin: 0 -5px;
     padding: 0 5px 1px 5px;
     border: none;
@@ -384,6 +453,13 @@ html, body{
     #RESPONSIVE DESIGN
 \*------------------------------------*/
 
+/* Below 440, it's grateful to only show parts of the footer. */
+@media (max-width: 440px) {
+    .app-footer .support{
+        display: none;
+    }
+}
+
 /* The css width of iPad air 2 is 768 (portrait). */
 @media (max-width: 768px) {
     .wrapper-header{
@@ -391,6 +467,9 @@ html, body{
         height: 100%;
         justify-content: center;
         align-items: center;
+    }
+    .header-title{
+        padding: 0 5px;
     }
     .control-help{
         position: absolute;
@@ -427,10 +506,9 @@ html, body{
         height: 100%;
     }
     .header-title{
-        display: flex;
         flex: 1;
-        align-items: center;
         padding-left: 5px;
+        margin-right: 10px;
     }
     .header-control{
         margin-right: -10px;

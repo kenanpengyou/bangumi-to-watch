@@ -18,10 +18,22 @@ var NoteReminders = Backbone.Collection.extend({
         this.generateItems();
     },
 
+    // This app cares about date, not accurate time. In consequence, formalize the timestamp to "00:00:00" of each day.
+    formalizeTime: function(timestamp){
+        var dateObject = new Date(timestamp),
+            year = dateObject.getFullYear(),
+            month = dateObject.getMonth(),
+            date = dateObject.getDate(),
+            convertedDate = new Date(year, month, date);
+
+        return convertedDate.getTime();
+    },
+
     // The key function of this app. To generate note reminders between "now" and "last".
     generateItems: function(){
         var now = Date.now(),
-            last = this.timeRecorders.getLast(),
+            formalizedNow = this.formalizeTime(now),
+            formalizedLast = this.formalizeTime(this.timeRecorders.getLast()),
             dayInterval = 24 * 60 * 60 * 1000,
             dayNote = null,
             records = null,
@@ -29,38 +41,57 @@ var NoteReminders = Backbone.Collection.extend({
             date = null,
             day = 0;
 
-        tempFlag = false;
+        // Review the period from "now" to "last", finish the work of each day.
+        for(timestamp = formalizedLast; timestamp <= formalizedNow; timestamp += dayInterval){
+            date = new Date(timestamp);
+            day = date.getDay();
+            dayNote = this.dayNotes.findByDay(day);
+            records = dayNote.getRecords();
 
-        // Be aware of that this app may be launched quite a few times within the same day, but the note reminders
-        // should have no duplicate. Therefore, it's grateful to update only when the interval is more than 1 day.
-        if(tempFlag || now - last > dayInterval){
+            // Each record will create a note reminder.
+            _.each(records, function(record){
+                var attributes = {
+                    title: record,
+                    time: timestamp
+                    },
+                    match = [];
 
-            // Review the period from "now" to "last", finish the work of each day.
-            for(timestamp = last; timestamp < now; timestamp += dayInterval){
-                date = new Date(timestamp);
-                day = date.getDay();
-                dayNote = this.dayNotes.findByDay(day);
-                records = dayNote.getRecords();
+                // Be aware of that this app may be launched quite a few times within the same day,
+                // but duplicate items should be avoided.
+                if(timestamp === formalizedNow){
+                    match = this.where(attributes);
 
-                // Each record will create a note reminder.
-                _.each(records, function(record){
+                    if(match.length === 0){
+                        this.create(attributes);
+                    }
 
-                    this.create({
-                        title: record,
-                        time: timestamp
-                    });
-                }, this);
-            }
+                // Else, there are no chances that items are duplicated.
+                }else{
+                    this.create(attributes);
+                }
 
-            // After all finished, update "last".
-            this.timeRecorders.update(now);
+            }, this);
         }
+
+        // Update "last".
+        this.timeRecorders.update(now);
     },
 
     getUndoneItems: function(){
         return this.where({
             done: false
         });
+    },
+
+    clearAll: function(){
+        var clearFn = function(model){
+            console.log("model = ", model);
+            model.destory();
+        };
+
+        this.each(clearFn);
+        this.timeRecorders.each(clearFn);
+        this.dayNotes.each(clearFn);
     }
 });
 

@@ -30,10 +30,16 @@ var noteReminders = new NoteReminders(null, {
 //--------------
 // Main Views
 //--------------
+var AppHeaderView = require("./views/app_header_view");
+var AppLayerView = require("./views/app_layer_view");
 var MainProgramView = require("./views/main_program_view");
 var MainRemindersView = require("./views/main_reminders_view");
 var ControlSwitchView = require("./views/control_switch_view");
 
+var appHeaderView = new AppHeaderView({
+    title: "ぺこ的节目单"
+});
+var appLayerView = new AppLayerView();
 var mainProgramView = new MainProgramView({
     collection: dayNotes,
     hide: true
