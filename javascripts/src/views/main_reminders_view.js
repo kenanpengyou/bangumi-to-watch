@@ -15,7 +15,7 @@ var MainReminders = Backbone.View.extend({
             collection: this.collection
         });
         this.dayNotes = options.dayNotes;
-        this.render();
+        this.initTimeNote();
 
         if(options.hide){
             this.hideEl();
@@ -23,7 +23,7 @@ var MainReminders = Backbone.View.extend({
         dispatcher.on("switch:program", this.hideEl, this);
         dispatcher.on("switch:reminders", this.showEl, this);
     },
-    render: function(){
+    initTimeNote: function(){
         var timeNoteEl = this.createTimeNoteEl();
 
         this.$el.prepend(timeNoteEl);

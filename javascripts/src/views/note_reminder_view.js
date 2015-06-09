@@ -17,7 +17,8 @@ var NoteReminderView = Backbone.View.extend({
         this.noteReminders = this.collection;
         this.render();
 
-        dispatcher.on("app:reset", this.reset, this);
+        this.listenTo(this.noteReminders, "change destroy", this.render);
+        dispatcher.on("app:reset", this.resetAll, this);
     },
     template: _.template(noteReminderTemplate),
 
@@ -49,13 +50,11 @@ var NoteReminderView = Backbone.View.extend({
         var target = $(event.currentTarget),
             itemEl = target.parents(".reminder-item"),
             targetId = target.data("id"),
-            model = this.noteReminders.get(targetId),
-            that = this;
+            model = this.noteReminders.get(targetId);
 
         target.addClass("is-checked");
         itemEl.fadeOut("slow", function(){
             model.done();
-            that.render();
         });
     },
 
@@ -75,8 +74,8 @@ var NoteReminderView = Backbone.View.extend({
         return string;
     },
 
-    reset: function(){
-        this.noteReminders.clearAll();
+    resetAll: function(){
+        this.noteReminders.resetAll();
     }
 });
 

@@ -51,7 +51,6 @@ var AppHeaderView = Backbone.View.extend({
 
     executeReset: function(){
         dispatcher.trigger("app:reset");
-        location.reload();
     }
 
 });

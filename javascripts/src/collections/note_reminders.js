@@ -83,15 +83,20 @@ var NoteReminders = Backbone.Collection.extend({
         });
     },
 
-    clearAll: function(){
-        var clearFn = function(model){
-            console.log("model = ", model);
-            model.destory();
-        };
+    // Remove all models and sync to local storage.
+    resetSelf: function(){
 
-        this.each(clearFn);
-        this.timeRecorders.each(clearFn);
-        this.dayNotes.each(clearFn);
+        // As model.destroy() will modify the collection itself, it's better it create a clone for iteration.
+        _.chain(this.models).clone().each(function(model){
+            model.destroy();
+        });
+    },
+
+    // All other collection's reset will be done here.
+    resetAll: function(){
+        this.resetSelf();
+        this.dayNotes.resetSelf();
+        this.timeRecorders.resetSelf();
     }
 });
 

@@ -45,6 +45,11 @@ var TimeRecorders = Backbone.Collection.extend({
         target.set("last", timestamp).save();
         target.set("start", timestamp).save();
         return this;
+    },
+    resetSelf: function(){
+        var now = Date.now();
+        this.restart(now);
+        return this;
     }
 });
 

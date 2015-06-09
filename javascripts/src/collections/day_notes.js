@@ -19,6 +19,7 @@ var DayNotes = Backbone.Collection.extend({
         this.fetch({reset: true});
 
         // The collection should have fixed 7 items, if not, create them.
+        // In theory, only once when this app is the launched the first time. App reset won't remove them.
         if(this.length < 7){
             _.each(this.days, function(day){
                 this.create({
@@ -63,6 +64,13 @@ var DayNotes = Backbone.Collection.extend({
         var day = this.days[this.mapDay(dayNumber)];
         return this.findWhere({
             day: day
+        });
+    },
+
+    // When app reset, clear the "record" attribute of each day note.
+    resetSelf: function(){
+        this.each(function(model){
+            model.clearRecords();
         });
     }
 

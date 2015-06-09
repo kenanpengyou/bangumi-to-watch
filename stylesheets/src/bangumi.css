@@ -139,6 +139,12 @@ html, body{
 .app-main{
     min-height: 100%;
     margin-bottom: -60px;
+
+    &:after{
+        display: block;
+        height: 60px;
+        content: "";
+    }
 }
 
 /*------------------------------------*\
@@ -418,7 +424,7 @@ html, body{
 .subscription-item.is-editing{
     padding: 5px 15px 4px 15px;
     border-radius: 0;
-    border-bottom: 1px dotted #455a64;
+    border-bottom: 1px dotted $theme-color-b;
     background: none;
     color: #333;
 

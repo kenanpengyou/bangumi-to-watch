@@ -14,7 +14,7 @@ var DayNote = Backbone.Model.extend({
     addRecord: function(record){
         var records = this.get("records");
         records.push(record);
-        return this;
+        return this.save();
     },
     modifyRecord: function(originRecord, newRecord){
         records = this.get("records");
@@ -23,7 +23,7 @@ var DayNote = Backbone.Model.extend({
         if(index > -1){
             records.splice(index, 1, newRecord);
         }
-        return this;
+        return this.save();
     },
     removeRecord: function(record){
         var records = this.get("records");
@@ -32,12 +32,17 @@ var DayNote = Backbone.Model.extend({
         if(index > -1){
             records.splice(index, 1);
         }
-        return this;
+        return this.save();
     },
 
     // Create a clone for the array "records".
     getRecords: function(){
         return _.map(this.get("records"), function(item){return item;});
+    },
+
+    // Clear the array "records".
+    clearRecords: function(){
+        return this.set("records", []).save();
     }
 });
 

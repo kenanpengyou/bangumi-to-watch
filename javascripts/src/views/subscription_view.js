@@ -7,7 +7,6 @@ var _ = require("underscore");
 var $ = require("jquery");
 var i18n = require("../i18n/translation");
 var dispatcher = require("../events/dispatcher");
-var DayNotes = require("../collections/day_notes");
 var subscriptionOverviewTemplate = require("../templates/subscription_overview_template");
 var subscriptionTemplate = require("../templates/subscription_template");
 
@@ -19,7 +18,7 @@ var SubscriptionView = Backbone.View.extend({
         // Use a more intelligible alias.
         this.dayNotes = this.collection;
         this.render();
-        this.dayNotes.on("change:day", this.changeSelected, this);
+        this.listenTo(this.dayNotes, "change", this.render)
     },
     templateOverview: _.template(subscriptionOverviewTemplate),
     templateItem:  _.template(subscriptionTemplate),
@@ -168,7 +167,6 @@ var SubscriptionView = Backbone.View.extend({
                 model.modifyRecord(originRecord, value);
                 inputEl.removeData("origin-record");
             }
-            model.save();
         }
 
         this.isAdding = false;
@@ -182,11 +180,6 @@ var SubscriptionView = Backbone.View.extend({
         maxInputWidth: 180,
         inputSpareWidth: 10,
         helpFontSize: 12
-    },
-
-    // Change selected day.
-    changeSelected: function(index){
-        this.render();
     },
 
     createHelpEl: function(){

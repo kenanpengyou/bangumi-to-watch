@@ -60,7 +60,7 @@ var DayView = Backbone.View.extend({
         if(this.dayNotes.selected !== index){
             this.dayNotes.selected = index;
             this.dayEls.removeClass("is-selected").eq(index).addClass("is-selected");
-            this.dayNotes.trigger("change:day");
+            this.dayNotes.trigger("change");
         }
     },
     displayToday: function(event){
