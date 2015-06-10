@@ -18,6 +18,11 @@ var NoteReminders = Backbone.Collection.extend({
         this.generateItems();
     },
 
+    // Descend by time is preferred.
+    comparator: function(model){
+        return model.get("time") * -1;
+    },
+
     // This app cares about date, not accurate time. In consequence, formalize the timestamp to "00:00:00" of each day.
     formalizeTime: function(timestamp){
         var dateObject = new Date(timestamp),

@@ -17,4 +17,4 @@ module.exports = [
         '<div class="reminder-bangumi"><%= title %></div>',
         '<div class="reminder-handle"><a class="complete-mark" href="javascript:" data-id="<%= id %>"><i class="icon-check"></i><i class="icon-check-empty"></i></a></div>',
     '</div>'
-].join("\n");
+].join("");

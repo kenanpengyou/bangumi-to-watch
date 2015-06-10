@@ -23,4 +23,4 @@ module.exports = [
             '<a class="submit-link submit-yes" href="javascript:"><%= layer.yes %></a>',
         '</div>',
     '</div>'
-].join("\n");
+].join("");

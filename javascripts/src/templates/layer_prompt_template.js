@@ -15,4 +15,4 @@ module.exports = [
         '<div class="card-figure card-front"><i class="icon-program"></i></div>',
         '<div class="card-figure card-back"><i class="icon-back"></i></div>',
     '</div>'
-].join("\n");
+].join("");

@@ -37,7 +37,7 @@ var MainRemindersView = require("./views/main_reminders_view");
 var ControlSwitchView = require("./views/control_switch_view");
 
 var appHeaderView = new AppHeaderView({
-    title: "ぺこ的节目单"
+    title: "庭院茶的节目单"
 });
 var appLayerView = new AppLayerView();
 var mainProgramView = new MainProgramView({

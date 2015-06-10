@@ -68,7 +68,7 @@ var AppLayerView = Backbone.View.extend({
             this.handleFn = function(){};
         }
 
-        this.render(type, options).$el.show();
+        this.render(type, options).$el.addClass(".is-gradual").show();
     }
 });
 

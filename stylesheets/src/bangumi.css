@@ -31,8 +31,9 @@ $tap-color: #d9effa;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
+    border-radius: 2px;
     background: $theme-color-a;
     color: #fff;
     vertical-align: middle;
@@ -63,8 +64,8 @@ div, a{
     -webkit-tap-highlight-color: transparent;
 }
 a{
-
     color: $theme-color-b;
+    text-decoration: none;
 }
 
 /*------------------------------------*\
@@ -162,6 +163,7 @@ html, body{
 
     a{
         color: inherit;
+        text-decoration: underline;
     }
 }
 
@@ -202,6 +204,7 @@ html, body{
         display: flex;
     }
     .submit-link{
+        display: block;
         flex: 1;
         padding: 10px 0;
         border-top: 1px solid #ccc;
@@ -211,7 +214,7 @@ html, body{
 
         &:hover,
         &:active{
-            background: #d9effa;
+            background: $tap-color;
         }
     }
     .submit-no{
@@ -255,8 +258,21 @@ html, body{
         transform: rotateY(180deg);
     }
 }
-.view-switch.is-flipped .switch-card{
-    transform: rotateY(180deg);
+
+.view-switch.is-flipped{
+    .switch-card{
+        transform: rotateY(180deg);
+    }
+}
+
+/* IE don't support "transform-style: preserve-3d",  try some other ways. IE>=10 hack. */
+_:-ms-input-placeholder, :root .view-switch.is-flipped {
+    .switch-card{
+        transform: rotateY(0deg);
+    }
+    .card-back{
+        transform: rotateY(0deg);
+    }
 }
 
 /* time note */
@@ -285,7 +301,7 @@ html, body{
 
     &:hover,
     &:active{
-        background: #d9effa;
+        background: $tap-color;
     }
 }
 .reminder-date{
@@ -325,14 +341,14 @@ html, body{
 /* day */
 .day-collection{
     display: flex;
-    padding: 15px 0;
+    padding: 20px 0;
 }
 .day-item{
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 0;
+    padding: 10px 0;
     color: #333;
     font-size: 14px;
     cursor: pointer;
@@ -374,7 +390,7 @@ html, body{
 }
 .subscription-collection{
     @mixin clearfix;
-    padding: 15px 0;
+    padding: 20px 0;
 }
 .subscription-item{
     display: flex;
@@ -382,6 +398,7 @@ html, body{
     float: left;
     margin-bottom: 10px;
     padding: 5px 15px;
+    border-radius: 2px;
     background: $theme-color-b;
     color: #fff;
     font-size: 14px;

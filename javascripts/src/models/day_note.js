@@ -13,8 +13,14 @@ var DayNote = Backbone.Model.extend({
     },
     addRecord: function(record){
         var records = this.get("records");
-        records.push(record);
-        return this.save();
+
+        // Records of the same day should not be duplicate.
+        if(records.indexOf(record) === -1){
+            records.push(record);
+            this.save();
+        }
+
+        return this;
     },
     modifyRecord: function(originRecord, newRecord){
         records = this.get("records");

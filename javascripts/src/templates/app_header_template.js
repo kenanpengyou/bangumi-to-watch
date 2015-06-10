@@ -21,4 +21,4 @@ module.exports = [
             '<a class="control-reset" href="javascript:"><i class="icon-off"></i></a>',
         '</div>',
     '</div>'
-].join("\n");
+].join("");
