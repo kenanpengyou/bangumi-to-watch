@@ -1,5 +1,5 @@
 /*
- * time_recorder.js
+ * recorder.js
  * ===== Model =====
  */
 
@@ -7,11 +7,12 @@ var Backbone = require("backbone");
 var _ = require("underscore");
 Backbone.LocalStorage = require("backbone.localstorage");
 
-var TimeRecorder = Backbone.Model.extend({
+var Recorder = Backbone.Model.extend({
     defaults: {
         start: 0,
-        last: 0
+        last: 0,
+        title: ""
     }
 });
 
-module.exports = TimeRecorder;
+module.exports = Recorder;

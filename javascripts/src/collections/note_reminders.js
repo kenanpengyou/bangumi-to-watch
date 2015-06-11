@@ -14,7 +14,7 @@ var NoteReminders = Backbone.Collection.extend({
     initialize: function(models, options){
         this.fetch({reset: true});
         this.dayNotes = options.dayNotes;
-        this.timeRecorders = options.timeRecorders;
+        this.recorders = options.recorders;
         this.generateItems();
     },
 
@@ -38,7 +38,7 @@ var NoteReminders = Backbone.Collection.extend({
     generateItems: function(){
         var now = Date.now(),
             formalizedNow = this.formalizeTime(now),
-            formalizedLast = this.formalizeTime(this.timeRecorders.getLast()),
+            formalizedLast = this.formalizeTime(this.recorders.getLast()),
             dayInterval = 24 * 60 * 60 * 1000,
             dayNote = null,
             records = null,
@@ -79,7 +79,7 @@ var NoteReminders = Backbone.Collection.extend({
         }
 
         // Update "last".
-        this.timeRecorders.update(now);
+        this.recorders.update(now);
     },
 
     getUndoneItems: function(){
@@ -101,7 +101,7 @@ var NoteReminders = Backbone.Collection.extend({
     resetAll: function(){
         this.resetSelf();
         this.dayNotes.resetSelf();
-        this.timeRecorders.resetSelf();
+        this.recorders.resetSelf();
     }
 });
 

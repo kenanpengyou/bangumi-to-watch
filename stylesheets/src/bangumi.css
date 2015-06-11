@@ -88,6 +88,7 @@ a{
     height: 100%;
     color: #fff;
     font-size: 18px;
+    cursor: default;
 }
 .header-control{
     a{
@@ -172,7 +173,7 @@ html, body{
 \*------------------------------------*/
 
 .app-layer{
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -184,12 +185,20 @@ html, body{
     z-index: 150;
 
     .frame-box{
-        width: 240px;
         border-radius: 3px;
         background: #fff;
     }
+
+    &.is-visible{
+        display: flex;
+
+        /* A small animation effect for the frame box. */
+        .frame-box{
+            animation: scaleIn .25s ease-out both;
+        }
+    }
+
     .box-main{
-        padding: 20px;
         text-align: center;
     }
     .note-text{
@@ -198,7 +207,27 @@ html, body{
     .note-sub-text{
         padding-top: 5px;
         color: #999;
-        font-size: 12px;
+    }
+    .input-container{
+        padding-top: 5px;
+    }
+    .layer-input{
+        -webkit-appearance: none;
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #fff;
+        box-sizing: border-box;
+        color: #999;
+        font-size: 14px;
+        transition: color .25s, border-color .25s, box-shadow .25s;
+
+        &:focus{
+            border-color: $theme-color-a;
+            box-shadow: 0 0 4px $theme-color-a;
+            color: #666;
+        }
     }
     .box-submit{
         display: flex;
@@ -284,7 +313,7 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     &:before {
         display: inline-block;
         width: 6px;
-        height: 22px;
+        height: 24px;
         margin-right: 10px;
         background: $theme-color-b;
         vertical-align: middle;
@@ -348,9 +377,8 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 0;
+    height: 36px;
     color: #333;
-    font-size: 14px;
     cursor: pointer;
     transition: background .5s, color .5s;
 
@@ -401,7 +429,6 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     border-radius: 2px;
     background: $theme-color-b;
     color: #fff;
-    font-size: 14px;
 
     &:hover,
     &:active{
@@ -415,14 +442,14 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
 .subscription-bangumi{
     display: flex;
     align-items: center;
-    height: 20px;
+    height: 24px;
     margin-right: -3px;
     cursor: default;
 }
 .subscription-input{
     display: none;
     width: $subscription-input-length;
-    height: 19px;
+    height: 23px;
     margin: 0 -5px;
     padding: 0 5px 1px 5px;
     border: none;
@@ -514,6 +541,17 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     .subscription-display{
         padding: 0 10px;
     }
+    .app-layer{
+        .frame-box{
+            width: 240px;
+        }
+        .box-main{
+            padding: 20px;
+        }
+        .note-sub-text{
+            font-size: 12px;
+        }
+    }
 }
 
 @media (min-width: 769px) {
@@ -530,11 +568,14 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     }
     .header-title{
         flex: 1;
-        padding-left: 5px;
+        padding-left: 10px;
         margin-right: 10px;
     }
     .header-control{
         margin-right: -10px;
+    }
+    .app-main{
+        font-size: 16px;
     }
     .reminder-collection{
         @mixin clearfix;
@@ -562,6 +603,20 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     .day-item:last-of-type{
         border-radius: 0 3px 3px 0;
     }
+    .app-layer{
+        .frame-box{
+            width: 360px;
+        }
+        .box-main{
+            padding: 30px;
+        }
+        .note-text{
+            font-size: 16px;
+        }
+        .note-sub-text{
+            font-size: 14px;
+        }
+    }
 }
 
 /* The width of custom center wrapper is 980. */
@@ -577,5 +632,20 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
         margin-left: 440px;
         left: 50%;
         bottom: 10px;
+    }
+}
+
+/*------------------------------------*\
+    #ANIMATION KEYFRAMES
+\*------------------------------------*/
+
+@keyframes scaleIn{
+    0%{
+        transform: scale(.95);
+        opacity: 0;
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
     }
 }

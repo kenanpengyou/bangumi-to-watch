@@ -12,14 +12,15 @@ var appHeaderTemplate = require("../templates/app_header_template");
 var AppHeaderView = Backbone.View.extend({
     el: "#app_header",
 
-    initialize: function(options){
-        this.title = options.title;
+    initialize: function(){
+        this.recorders = this.collection;
         this.render();
+        this.listenTo(this.recorders, "change", this.render);
     },
     template: _.template(appHeaderTemplate),
     render: function(){
         var html = this.template({
-            title: this.title
+            title: this.recorders.getTitle()
         });
         this.$el.html(html);
 
@@ -31,7 +32,18 @@ var AppHeaderView = Backbone.View.extend({
         "click .control-help": "appHelp"
     },
     modifyTitle: function(event){
-        console.log("[AppHeaderView:modifyTitle]");
+        var confirmFn = function(input){
+            if($.trim(input) !== ""){
+                this.recorders.modifyTitle(input);
+            }
+        };
+
+        dispatcher.trigger("layer:prompt",{
+            textMain: i18n.control.modifyTitle,
+            inputOrigin: this.recorders.getTitle(),
+            fn: confirmFn,
+            context: this
+        });
     },
     appReset: function(event){
         dispatcher.trigger("layer:confirm", {
@@ -44,7 +56,9 @@ var AppHeaderView = Backbone.View.extend({
         });
     },
     appHelp: function(event){
-        console.log("[AppHeaderView:appHelp]");
+        dispatcher.trigger("layer:alert", {
+            textMain: "暂不提供帮助 = ="
+        });
     },
 
     // ------- custom below -------

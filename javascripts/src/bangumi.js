@@ -16,15 +16,15 @@ Backbone.$ = $;
 //--------------
 // Model and collections.
 //--------------
-var TimeRecorders = require("./collections/time_recorders");
+var Recorders = require("./collections/recorders");
 var DayNotes = require("./collections/day_notes");
 var NoteReminders = require("./collections/note_reminders");
 
-var timeRecorders = new TimeRecorders();
+var recorders = new Recorders();
 var dayNotes = new DayNotes();
 var noteReminders = new NoteReminders(null, {
     dayNotes: dayNotes,
-    timeRecorders: timeRecorders
+    recorders: recorders
 });
 
 //--------------
@@ -37,7 +37,7 @@ var MainRemindersView = require("./views/main_reminders_view");
 var ControlSwitchView = require("./views/control_switch_view");
 
 var appHeaderView = new AppHeaderView({
-    title: "庭院茶的节目单"
+    collection: recorders
 });
 var appLayerView = new AppLayerView();
 var mainProgramView = new MainProgramView({

@@ -6,6 +6,7 @@
 */
 
 module.exports = {
+    initTitle: "Bangumi to Watch",
     day: {
         Monday: "周一",
         Tuesday: "周二",
@@ -23,6 +24,7 @@ module.exports = {
     control: {
         resetMain: "要重置应用吗？",
         resetSub: "将清除本应用已保存的所有数据。",
-        deleteMain: "确定要删除吗？"
+        deleteMain: "确定要删除吗？",
+        modifyTitle: "修改标题文字"
     }
 };

@@ -9,6 +9,7 @@ var i18n = require("../i18n/translation");
 var dispatcher = require("../events/dispatcher");
 var layerConfirmTemplate = require("../templates/layer_confirm_template");
 var layerPromptTemplate = require("../templates/layer_prompt_template");
+var layerAlertTemplate = require("../templates/layer_alert_template");
 
 var AppLayerView = Backbone.View.extend({
     el: "#app_layer",
@@ -20,9 +21,13 @@ var AppLayerView = Backbone.View.extend({
         dispatcher.on("layer:alert", function(args){
             this.display("alert", args);
         }, this);
+        dispatcher.on("layer:prompt", function(args){
+            this.display("prompt", args);
+        }, this);
     },
     templateConfirm: _.template(layerConfirmTemplate),
     templatePrompt: _.template(layerPromptTemplate),
+    templateAlert: _.template(layerAlertTemplate),
     render: function(type, options){
 
         // "prompt" to "templatePrompt".
@@ -42,18 +47,26 @@ var AppLayerView = Backbone.View.extend({
         "click .submit-no": "submitNo"
     },
     submitNo: function(event){
-        this.$el.empty().hide();
+        this.$el.empty().removeClass("is-visible");
     },
     submitYes: function(event){
-        this.handlerFn();
-        this.$el.empty().hide();
+
+        if(this.inputEl){
+            this.handlerFn(this.inputEl.val());
+            this.inputEl = null;
+        }else{
+            this.handlerFn();
+        }
+
+        this.$el.empty().removeClass("is-visible");
     },
 
     // ------- custom below -------
 
     // The 3 types are "confirm", "alert" and "prompt".
     // "confirm": textMain, textSub, fn, context
-    // "alert": textMain, fn
+    // "alert": textMain, fn, context
+    // "prompt": textMain, inputOrigin, fn, context
     display: function(type, options){
 
         // Context could be taken along.
@@ -62,13 +75,18 @@ var AppLayerView = Backbone.View.extend({
 
         if(typeof fn === "function"){
             this.handlerFn = function(){
-                options.fn.apply(context);
+                options.fn.apply(context, arguments);
             };
         }else{
-            this.handleFn = function(){};
+            this.handlerFn = function(){};
         }
 
-        this.render(type, options).$el.addClass(".is-gradual").show();
+        this.render(type, options).$el.addClass("is-visible");
+
+        // Type "prompt" needs the input's value.
+        if(type === "prompt"){
+            this.inputEl = this.$(".layer-input").focus().select();
+        }
     }
 });
 

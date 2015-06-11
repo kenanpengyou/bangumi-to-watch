@@ -1,17 +1,18 @@
 /*
- * time_recorders.js
+ * recorders.js
  * ===== Collections =====
  * This collection has only one model in design.
  */
 
 var Backbone = require("backbone");
 var _ = require("underscore");
-var TimeRecorder = require("../models/time_recorder");
+var Recorder = require("../models/recorder");
+var i18n = require("../i18n/translation");
 Backbone.LocalStorage = require("backbone.localstorage");
 
-var TimeRecorders = Backbone.Collection.extend({
-    model: TimeRecorder,
-    localStorage: new Backbone.LocalStorage("bangumi-time-recorder"),
+var Recorders = Backbone.Collection.extend({
+    model: Recorder,
+    localStorage: new Backbone.LocalStorage("bangumi-recorder"),
     initialize: function(){
         var now = null;
 
@@ -22,9 +23,21 @@ var TimeRecorders = Backbone.Collection.extend({
             now = Date.now();
             this.create({
                 start: now,
-                last: now
+                last: now,
+                title: i18n.initTitle
             });
         }
+    },
+    getTitle: function(title){
+        var target = this.at(0);
+
+        return target.get("title");
+    },
+    modifyTitle: function(title){
+        var target = this.at(0);
+        target.set("title", title).save();
+
+        return this;
     },
     getLast: function(){
         var target = this.at(0);
@@ -53,4 +66,4 @@ var TimeRecorders = Backbone.Collection.extend({
     }
 });
 
-module.exports = TimeRecorders;
+module.exports = Recorders;
