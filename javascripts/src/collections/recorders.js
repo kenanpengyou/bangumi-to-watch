@@ -55,13 +55,16 @@ var Recorders = Backbone.Collection.extend({
     },
     restart: function(timestamp){
         var target = this.at(0);
-        target.set("last", timestamp).save();
-        target.set("start", timestamp).save();
+        target.set({
+            start: timestamp,
+            last: timestamp
+        }).save();
         return this;
     },
     resetSelf: function(){
         var now = Date.now();
         this.restart(now);
+        this.modifyTitle(i18n.initTitle);
         return this;
     }
 });

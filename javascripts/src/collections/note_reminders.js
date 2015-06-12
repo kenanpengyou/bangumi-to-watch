@@ -62,8 +62,8 @@ var NoteReminders = Backbone.Collection.extend({
                     match = [];
 
                 // Be aware of that this app may be launched quite a few times within the same day,
-                // but duplicate items should be avoided.
-                if(timestamp === formalizedNow){
+                // but duplicate items should be avoided. Only the edge two days needs caring about.
+                if(timestamp === formalizedLast || timestamp === formalizedNow){
                     match = this.where(attributes);
 
                     if(match.length === 0){
