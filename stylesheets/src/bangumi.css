@@ -422,13 +422,13 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     padding: 20px 0;
 }
 .subscription-item{
-    display: flex;
-    align-items: center;
+    position: relative;
     float: left;
     margin-bottom: 10px;
     padding: 5px 15px;
     border-radius: 2px;
     background: $theme-color-b;
+    overflow: hidden;
     color: #fff;
 
     &:hover,
@@ -444,7 +444,6 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     display: flex;
     align-items: center;
     height: 28px;
-    margin-right: -3px;
     cursor: default;
 }
 .subscription-input{
@@ -458,14 +457,22 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     outline: none;
 }
 .subscription-handle{
-    display: flex;
-    align-items: center;
-    margin-right: -13px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    opacity: 0;
+    left: 0;
+    top: 0;
 }
 .delete-mark{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
     color: #fff;
-    font-size: 12px;
-    opacity: 0;
+    font-size: 14px;
     cursor: default;
 }
 /* Could be edited in the line. */
@@ -484,21 +491,17 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     }
 }
 .subscription-collection.is-gradual{
-    .subscription-bangumi {
-        transition: margin .25s ease;
-    }
-    .delete-mark{
+    .subscription-handle{
         transition: opacity .25s ease;
     }
 }
 /* When in this status, show the delete mark. */
-.subscription-collection.is-editing{
+.subscription-collection.is-status-delete{
 
-    .subscription-bangumi {
-        margin: 0 5px 0 -8px;
+    .subscription-handle{
+        opacity: 1;
     }
     .delete-mark{
-        opacity: 1;
         cursor: pointer;
     }
 }

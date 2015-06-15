@@ -63,13 +63,13 @@ var SubscriptionView = Backbone.View.extend({
         return this;
     },
     events: {
-        "dblclick .subscription-item": "modifyItem",
-        "pointerdown .subscription-item": "detectItemLongPress",
-        "pointerup .subscription-item": "detectItemLongPress",
+        "dblclick .subscription-collection:not(.is-status-delete) .subscription-item": "modifyItem",
+        "pointerdown .subscription-collection:not(.is-status-delete) .subscription-item": "detectItemLongPress",
+        "pointerup .subscription-collection:not(.is-status-delete) .subscription-item": "detectItemLongPress",
         "pointerup .subscription-edit": "toggleEditing",
         "pointerdown .subscription-add": "detectAdd",
         "pointerup .subscription-add": "detectAdd",
-        "pointerup .subscription-collection.is-editing .delete-mark": "deleteItem",
+        "pointerup .subscription-collection.is-status-delete .delete-mark": "deleteItem",
         "keyup .subscription-item.is-editing .subscription-input": "helpInput",
         "blur .subscription-item.is-editing .subscription-input": "closeInput"
     },
@@ -97,7 +97,7 @@ var SubscriptionView = Backbone.View.extend({
         return false;
     },
     toggleEditing: function(event){
-        this.collectionEl.addClass("is-gradual").toggleClass("is-editing");
+        this.collectionEl.addClass("is-gradual").toggleClass("is-status-delete");
     },
     deleteItem: function(event){
         var target = $(event.currentTarget),
@@ -144,7 +144,7 @@ var SubscriptionView = Backbone.View.extend({
         // Use the class name "is-new" to identify it.
         newSubscription.addClass("is-editing").appendTo(this.collectionEl);
         this.editingInputEl = newSubscription.find(".subscription-input").addClass("is-new").focus();
-        this.collectionEl.removeClass("is-gradual").removeClass("is-editing");
+        this.collectionEl.removeClass("is-gradual").removeClass("is-status-delete");
         this.isAdding = true;
     },
 
