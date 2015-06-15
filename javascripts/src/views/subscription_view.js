@@ -64,11 +64,37 @@ var SubscriptionView = Backbone.View.extend({
     },
     events: {
         "dblclick .subscription-item": "modifyItem",
-        "click .subscription-edit": "toggleEditing",
-        "click .subscription-add": "prepareAdding",
-        "click .subscription-collection.is-editing .delete-mark": "deleteItem",
+        "pointerdown .subscription-item": "detectItemLongPress",
+        "pointerup .subscription-item": "detectItemLongPress",
+        "pointerup .subscription-edit": "toggleEditing",
+        "pointerdown .subscription-add": "detectAdd",
+        "pointerup .subscription-add": "detectAdd",
+        "pointerup .subscription-collection.is-editing .delete-mark": "deleteItem",
         "keyup .subscription-item.is-editing .subscription-input": "helpInput",
         "blur .subscription-item.is-editing .subscription-input": "closeInput"
+    },
+
+    // When "pointerdown" and "pointerup" are both "return false" (prevent default), "click" won't be fired (which may
+    // cause "blur" after manually setting a focus input) in a normal interaction.
+    detectAdd: function(event){
+
+        if(event.type === "pointerup"){
+            this.prepareAdding();
+        }
+        return false;
+    },
+
+    // For touch devices, "double click" won't be fired anyway. Try using a long press to replace it.
+    detectItemLongPress: function(event){
+        var timeLimit = 500;
+
+        if(event.type === "pointerdown"){
+            this.pressFlag = setTimeout(_.bind(this.modifyItem, this, event), timeLimit);
+        }else if(event.type === "pointerup"){
+            clearTimeout(this.pressFlag);
+        }
+
+        return false;
     },
     toggleEditing: function(event){
         this.collectionEl.addClass("is-gradual").toggleClass("is-editing");
@@ -162,7 +188,14 @@ var SubscriptionView = Backbone.View.extend({
         if($.trim(value) !== ""){
 
             if(isNew){
-                model.addRecord(value);
+
+                if(model.isFull()){
+                    dispatcher.trigger("layer:alert", {
+                        textMain: i18n.control.recordsFull
+                    });
+                }else{
+                    model.addRecord(value);
+                }
             }else if(originRecord !== value){
                 model.modifyRecord(originRecord, value);
                 inputEl.removeData("origin-record");

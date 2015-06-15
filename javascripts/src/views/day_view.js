@@ -50,9 +50,9 @@ var DayView = Backbone.View.extend({
         return this;
     },
     events: {
-        "click .day-item": "changeSelected",
-        "mouseenter .is-today": "displayToday",
-        "mouseleave .is-today": "displayToday"
+        "pointerup .day-item": "changeSelected",
+        "pointerenter .is-today": "displayToday",
+        "pointerleave .is-today": "displayToday"
     },
     changeSelected: function(event){
         var index = $(event.target).data("index");
@@ -67,10 +67,10 @@ var DayView = Backbone.View.extend({
         var target = $(event.currentTarget);
 
         switch(event.type){
-            case "mouseenter":
+            case "pointerenter":
                 target.text(target.data("originName"));
                 break;
-            case "mouseleave":
+            case "pointerleave":
                 target.text(target.data("todayName"));
         }
     },

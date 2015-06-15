@@ -31,9 +31,9 @@ $tap-color: #d9effa;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 35px;
-    height: 35px;
-    border-radius: 2px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     background: $theme-color-a;
     color: #fff;
     vertical-align: middle;
@@ -222,6 +222,7 @@ html, body{
         color: #999;
         font-size: 14px;
         transition: color .25s, border-color .25s, box-shadow .25s;
+        outline: none;
 
         &:focus{
             border-color: $theme-color-a;
@@ -325,7 +326,7 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
 .reminder-item{
     display: flex;
     align-items: center;
-    padding: 5px 10px;
+    padding: 5px 10px 5px 10px;
     border-bottom: 1px dotted #7571b4;
 
     &:hover,
@@ -349,9 +350,9 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     justify-content: center;
     align-items: center;
     width: 30px;
-    height: 33px;
+    height: 40px;
     color: #666;
-    font-size: 18px;
+    font-size: 20px;
     text-align: center;
 
     .icon-check{
@@ -394,12 +395,12 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
 }
 .day-bangumi-count{
     @mixin program-control;
-    font-size: 16px;
+    font-size: 20px;
 }
 .subscription-edit{
     @mixin program-control;
     margin-left: 20px;
-    font-size: 16px;
+    font-size: 20px;
 
     &:hover,
     &:active{
@@ -409,7 +410,7 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
 .subscription-add{
     @mixin program-control;
     margin-left: 20px;
-    font-size: 16px;
+    font-size: 20px;
 
     &:hover,
     &:active{
@@ -442,20 +443,23 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
 .subscription-bangumi{
     display: flex;
     align-items: center;
-    height: 24px;
+    height: 28px;
     margin-right: -3px;
     cursor: default;
 }
 .subscription-input{
     display: none;
     width: $subscription-input-length;
-    height: 23px;
+    height: 27px;
     margin: 0 -5px;
     padding: 0 5px 1px 5px;
     border: none;
     background: none;
+    outline: none;
 }
 .subscription-handle{
+    display: flex;
+    align-items: center;
     margin-right: -13px;
 }
 .delete-mark{
@@ -585,7 +589,7 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
         margin-bottom: 10px;
 
         &:not(:last-of-type){
-            margin-right: 10px;
+            margin-right: 20px;
         }
     }
     .day-collection{

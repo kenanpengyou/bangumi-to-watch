@@ -25,6 +25,7 @@ module.exports = {
         resetMain: "要重置应用吗？",
         resetSub: "将清除本应用已保存的所有数据。",
         deleteMain: "确定要删除吗？",
-        modifyTitle: "修改标题文字"
+        modifyTitle: "修改标题文字",
+        recordsFull: "记录数已达上限（99）"
     }
 };

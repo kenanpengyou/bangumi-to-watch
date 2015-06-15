@@ -24,7 +24,7 @@ var ControlSwitchView = Backbone.View.extend({
         return this;
     },
     events: {
-        "click": "switchView"
+        "pointerup": "switchView"
     },
     switchView: function(event){
         var flag = "",

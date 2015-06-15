@@ -44,7 +44,7 @@ var NoteReminderView = Backbone.View.extend({
     },
 
     events: {
-        "click .reminder-item .complete-mark": "completeOne"
+        "pointerup .reminder-item .complete-mark": "completeOne"
     },
     completeOne: function(event){
         var target = $(event.currentTarget),

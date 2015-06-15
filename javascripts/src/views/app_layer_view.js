@@ -43,8 +43,8 @@ var AppLayerView = Backbone.View.extend({
         return this;
     },
     events: {
-        "click .submit-yes": "submitYes",
-        "click .submit-no": "submitNo"
+        "pointerup .submit-yes": "submitYes",
+        "pointerup .submit-no": "submitNo"
     },
     submitNo: function(event){
         this.$el.empty().removeClass("is-visible");

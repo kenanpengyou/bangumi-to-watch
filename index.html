@@ -9,23 +9,23 @@
     <script src="./vendor/modernizr/modernizr.custom.js"></script>
 </head>
 <body>
-<header id="app_header" class="app-header"></header>
+<header id="app_header" class="app-header" touch-action="none"></header>
 <div class="frame-container wrapper">
     <div class="app-main">
         <div id="main_reminders" class="app-view">
-            <div id="reminder_collection" class="reminder-collection"></div>
+            <div id="reminder_collection" class="reminder-collection" touch-action="pan-y"></div>
         </div>
         <div id="main_program" class="app-view">
-            <div id="day_collection" class="day-collection"></div>
-            <div id="subscription_display" class="subscription-display"></div>
+            <div id="day_collection" class="day-collection" touch-action="none"></div>
+            <div id="subscription_display" class="subscription-display" touch-action="pan-y"></div>
         </div>
-        <div id="control_switch" class="view-switch"></div>
+        <div id="control_switch" class="view-switch" touch-action="none"></div>
     </div>
     <footer class="app-footer">
         <p class="copyright">&copy; 2015 <a href="http://acgtofe.com">Tea Works</a>.<span class="support"> Powered by <a href="http://backbonejs.org">Backbone</a> and <a href="https://github.com/kenanpengyou/bangumi-to-watch">Github</a>.</span></p>
     </footer>
 </div>
-<div id="app_layer" class="app-layer"></div>
+<div id="app_layer" class="app-layer" touch-action="none"></div>
 <script src="./javascripts/dest/bangumi.js"></script>
 </body>
 </html>

@@ -11,6 +11,11 @@ var DayNote = Backbone.Model.extend({
         day: "Sunday",
         records: []
     },
+
+    // The array "records" has a max limitation of 99.
+    isFull: function(){
+        return this.get("records").length >= 99;
+    },
     addRecord: function(record){
         var records = this.get("records");
 

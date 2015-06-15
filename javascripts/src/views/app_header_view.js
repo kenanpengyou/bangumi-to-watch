@@ -28,8 +28,23 @@ var AppHeaderView = Backbone.View.extend({
     },
     events: {
         "dblclick .header-title": "modifyTitle",
-        "click .control-reset": "appReset",
-        "click .control-help": "appHelp"
+        "pointerdown .header-title": "detectLongPress",
+        "pointerup .header-title": "detectLongPress",
+        "pointerup .control-reset": "appReset",
+        "pointerup .control-help": "appHelp"
+    },
+
+    // For touch devices, "double click" won't be fired anyway. Try using a long press to replace it.
+    detectLongPress: function(event){
+        var timeLimit = 500;
+
+        if(event.type === "pointerdown"){
+            this.pressFlag = setTimeout(_.bind(this.modifyTitle, this), timeLimit);
+        }else if(event.type === "pointerup"){
+            clearTimeout(this.pressFlag);
+        }
+
+        return false;
     },
     modifyTitle: function(event){
         var confirmFn = function(input){

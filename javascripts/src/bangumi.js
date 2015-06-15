@@ -2,11 +2,12 @@
 * bangumi.js
 */
 
-"use strict";
-
 //--------------
 // Libs.
 //--------------
+
+// Pointer Events Polyfill by jQuery team (https://github.com/jquery/pep)
+require("pepjs/dist/pep.js");
 var Backbone = require("backbone");
 var $ = require("jquery");
 var _ = require("underscore");
