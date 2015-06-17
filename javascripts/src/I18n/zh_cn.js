@@ -27,5 +27,8 @@ module.exports = {
         deleteMain: "确定要删除吗？",
         modifyTitle: "修改标题文字",
         recordsFull: "记录数已达上限（99）"
+    },
+    tips: {
+        reminderNone: '点击右下角的<i class="icon-program"></i>可以切换到节目单。'
     }
 };

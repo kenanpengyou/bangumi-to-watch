@@ -211,16 +211,17 @@ var SubscriptionView = Backbone.View.extend({
     config: {
         minInputWidth: 30,
         maxInputWidth: 180,
-        inputSpareWidth: 10,
-        helpFontSize: 12
+        inputSpareWidth: 10
     },
 
     createHelpEl: function(){
+        var refFontSize = this.$el.css("fontSize");
+
         // An element to help evaluate the proper width for input.
         this.helpEl = $("<div></div>").css({
             position: "absolute",
             visibility: "hidden",
-            fontSize: this.config.helpFontSize
+            fontSize: refFontSize
         }).appendTo("body");
     },
     removeHelpEl: function(){

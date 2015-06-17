@@ -6,6 +6,7 @@ var Backbone = require("backbone");
 var _ = require("underscore");
 var $ = require("jquery");
 var dispatcher = require("../events/dispatcher");
+var i18n = require("../i18n/translation");
 var noteReminderTemplate = require("../templates/note_reminder_template");
 
 var NoteReminderView = Backbone.View.extend({
@@ -28,15 +29,22 @@ var NoteReminderView = Backbone.View.extend({
         var unDoneItems = this.noteReminders.getUndoneItems(),
         html = "";
 
-        _.each(unDoneItems, function(item){
+        if(unDoneItems.length === 0){
+            html = '<div class="reminder-tips">' + i18n.tips.reminderNone + '</div>'
 
-            html += this.template({
-                title: item.get("title"),
-                date: this.formatDate(item.get("time")),
-                id: item.get("id")
-            });
+        }else{
+            _.each(unDoneItems, function(item){
 
-        }, this);
+                html += this.template({
+                    title: item.get("title"),
+                    date: this.formatDate(item.get("time")),
+                    id: item.get("id")
+                });
+
+            }, this);
+        }
+
+
 
         this.$el.html(html);
 
