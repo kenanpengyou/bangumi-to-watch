@@ -1,0 +1,757 @@
+/*
+* bangumi.css
+* This is a css file for PostCSS.
+* by liangzhu ( http://acgtofe.com )
+*/
+
+/*------------------------------------*\
+    #VARIABLES
+\*------------------------------------*/
+
+$wrapper-width: 980px;
+$subscription-input-length: 30px;
+$theme-color-a: #6aaac9;
+$theme-color-b: #4676a8;
+$theme-color-c: #424c57;
+$tap-color: #d9effa;
+
+/*------------------------------------*\
+    #MIXINS
+\*------------------------------------*/
+
+@define-mixin clearfix{
+    &:after{
+        display: table;
+        clear: both;
+        content: " ";
+    }
+}
+@define-mixin program-control{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: $theme-color-a;
+    color: #fff;
+    vertical-align: middle;
+}
+
+/*------------------------------------*\
+    #ICONS
+\*------------------------------------*/
+
+@import "fontello.css";
+
+/*------------------------------------*\
+    #BASE AND SKIN
+\*------------------------------------*/
+
+a, img {
+    -webkit-touch-callout: none;
+}
+html, body{
+    user-select: none;
+}
+body{
+    font-family: verdana, "Microsoft Yahei", arial, sans-serif;
+    font-size: 14px;
+}
+div, a{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+}
+a{
+    color: $theme-color-b;
+    text-decoration: none;
+}
+
+/*------------------------------------*\
+    #BROWSER NOTE
+\*------------------------------------*/
+.browser-note{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    margin: -100px 0 0 -100px;
+    left: 50%;
+    top: 50%;
+
+    .note-actor{
+        width: 160px;
+        height: 160px;
+        margin: 0 auto;
+        background: url('../../images/hopou.png') no-repeat;
+        background-size: 100% auto;
+    }
+    .note-text{
+        text-align: center;
+    }
+}
+@media
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi){
+    .browser-note .note-actor{
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/*------------------------------------*\
+    #HEADER
+\*------------------------------------*/
+.app-header{
+    position: fixed;
+    width: 100%;
+    height: 42px;
+    background: $theme-color-a;
+    z-index: 50;
+}
+.header-title{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: #fff;
+    font-size: 18px;
+    cursor: default;
+}
+.header-control{
+    a{
+        color: #fff;
+    }
+}
+.control-help{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    font-size: 24px;
+    text-align: center;
+
+    &:hover,
+    &:active{
+        background: color($theme-color-a l(+10%));
+    }
+}
+.control-reset{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    font-size: 20px;
+    text-align: center;
+
+    &:hover,
+    &:active{
+        background: color($theme-color-a l(+10%));
+    }
+}
+
+/*------------------------------------*\
+    #FRAME
+\*------------------------------------*/
+html, body{
+    height: 100%;
+}
+.frame-container{
+    position: relative;
+    height: 100%;
+    padding-top: 42px;
+    box-sizing: border-box;
+}
+.app-main{
+    min-height: 100%;
+    margin-bottom: -60px;
+
+    &:after{
+        display: block;
+        height: 60px;
+        content: "";
+    }
+}
+
+/*------------------------------------*\
+    #FOOTER
+\*------------------------------------*/
+.app-footer{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.copyright{
+    font-size: 12px;
+
+    a{
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+
+/*------------------------------------*\
+    #LAYER
+\*------------------------------------*/
+
+.app-layer{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    left: 0;
+    top: 0;
+    z-index: 150;
+
+    .frame-box{
+        border-radius: 3px;
+        background: #fff;
+    }
+
+    &.is-visible{
+        display: flex;
+
+        /* A small animation effect for the frame box. */
+        .frame-box{
+            animation: scaleIn .25s ease-out both;
+        }
+    }
+
+    .box-main{
+        text-align: center;
+    }
+    .note-text{
+        color: #333;
+    }
+    .note-sub-text{
+        padding-top: 5px;
+        color: #999;
+    }
+    .input-container{
+        padding-top: 5px;
+    }
+    .layer-input{
+        -webkit-appearance: none;
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #fff;
+        box-sizing: border-box;
+        color: #999;
+        font-size: 14px;
+        transition: color .25s, border-color .25s, box-shadow .25s;
+        outline: none;
+
+        &:focus{
+            border-color: $theme-color-a;
+            box-shadow: 0 0 4px $theme-color-a;
+            color: #666;
+        }
+    }
+    .box-submit{
+        display: flex;
+    }
+    .submit-link{
+        display: block;
+        flex: 1;
+        padding: 10px 0;
+        border-top: 1px solid #ccc;
+        box-sizing: border-box;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover,
+        &:active{
+            background: $tap-color;
+        }
+    }
+    .submit-no{
+        border-right: 1px solid #ccc;
+    }
+}
+
+.help-layer{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    left: 0;
+    top: 0;
+    z-index: 200;
+
+    &.is-visible{
+        display: flex;
+
+        .help-article{
+            animation: fadeIn .25s both;
+        }
+    }
+
+    .help-close{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 0 0 0 40px;
+        background: #fff;
+        color: $theme-color-c;
+        font-size: 24px;
+        right: 0;
+        top: 0;
+
+        &:hover,
+        &:active{
+            background: $tap-color;
+        }
+
+        i{
+            position: relative;
+            top: -5px;
+            right: -5px;
+        }
+    }
+    .help-article{
+        max-width: $wrapper-width;
+        padding: 10px;
+        box-sizing: border-box;
+        line-height: 1.6;
+    }
+
+}
+
+/*------------------------------------*\
+    #MAIN
+\*------------------------------------*/
+
+/* view switch */
+.view-switch{
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    perspective: 300px;
+    cursor: pointer;
+}
+.switch-card{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .5s;
+
+    .card-figure{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: $theme-color-c;
+        color: #fff;
+        font-size: 24px;
+        backface-visibility: hidden;
+    }
+    .card-back{
+        transform: rotateY(180deg);
+    }
+}
+
+.view-switch.is-flipped{
+    .switch-card{
+        transform: rotateY(180deg);
+    }
+}
+
+/* IE don't support "transform-style: preserve-3d",  try some other ways. IE>=10 hack. */
+_:-ms-input-placeholder, :root .view-switch.is-flipped {
+    .switch-card{
+        transform: rotateY(0deg);
+    }
+    .card-back{
+        transform: rotateY(0deg);
+    }
+}
+
+/* time note */
+.time-note{
+    margin-bottom: 10px;
+    padding: 10px 0 0 10px;
+    color: #333;
+
+    &:before {
+        display: inline-block;
+        width: 6px;
+        height: 24px;
+        margin-right: 10px;
+        background: $theme-color-b;
+        vertical-align: middle;
+        content: "";
+    }
+}
+
+/* reminder */
+.reminder-tips{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    padding: 0 10px;
+    line-height: 1.5;
+    color: #999;
+}
+.reminder-item{
+    display: flex;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+    border-bottom: 1px dotted #7571b4;
+
+    &:hover,
+    &:active{
+        background: $tap-color;
+    }
+}
+.reminder-date{
+    margin-right: 10px;
+    color: $theme-color-b;
+    cursor: default;
+}
+.reminder-bangumi{
+    margin-right: 10px;
+    flex: 1;
+    color: #333;
+    cursor: default;
+}
+.complete-mark{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 40px;
+    color: #666;
+    font-size: 20px;
+    text-align: center;
+
+    .icon-check{
+        display: none;
+        position: relative;
+        left: 1px;
+    }
+    &.is-checked .icon-check{
+        display: inline-block;
+    }
+    &.is-checked .icon-check-empty{
+        display: none;
+    }
+}
+
+/* day */
+.day-collection{
+    display: flex;
+    padding: 20px 0;
+}
+.day-item{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    color: #333;
+    cursor: pointer;
+    transition: background .5s, color .5s;
+
+    &.is-selected{
+        background: $theme-color-b;
+        color: #fff;
+    }
+}
+
+/* subscription */
+.subscription-overview{
+
+}
+.day-bangumi-count{
+    @mixin program-control;
+    font-size: 20px;
+}
+.subscription-edit{
+    @mixin program-control;
+    margin-left: 20px;
+    font-size: 20px;
+
+    &:hover,
+    &:active{
+        background: color($theme-color-a l(+10%));
+    }
+}
+.subscription-add{
+    @mixin program-control;
+    margin-left: 20px;
+    font-size: 20px;
+
+    &:hover,
+    &:active{
+        background: color($theme-color-a l(+10%));
+    }
+}
+.subscription-collection{
+    @mixin clearfix;
+    padding: 20px 0;
+}
+.subscription-item{
+    position: relative;
+    float: left;
+    margin-bottom: 10px;
+    padding: 5px 15px;
+    border-radius: 2px;
+    background: $theme-color-b;
+    overflow: hidden;
+    color: #fff;
+
+    &:hover,
+    &:active{
+        background: color($theme-color-b l(+10%));
+    }
+
+    &:not(:last-of-type){
+        margin-right: 10px;
+    }
+}
+.subscription-bangumi{
+    display: flex;
+    align-items: center;
+    height: 28px;
+    cursor: default;
+}
+.subscription-input{
+    display: none;
+    width: $subscription-input-length;
+    height: 27px;
+    margin: 0 -5px;
+    padding: 0 5px 1px 5px;
+    border: none;
+    background: none;
+    outline: none;
+}
+.subscription-handle{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    opacity: 0;
+    left: 0;
+    top: 0;
+}
+.delete-mark{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-size: 14px;
+    cursor: default;
+}
+/* Could be edited in the line. */
+.subscription-item.is-editing{
+    padding: 5px 15px 4px 15px;
+    border-radius: 0;
+    border-bottom: 1px dotted $theme-color-b;
+    background: none;
+    color: #333;
+
+    .bangumi-title {
+        display: none;
+    }
+    .subscription-input{
+        display: inline-block;
+    }
+}
+.subscription-collection.is-gradual{
+    .subscription-handle{
+        transition: opacity .25s ease;
+    }
+}
+/* When in this status, show the delete mark. */
+.subscription-collection.is-status-delete{
+
+    .subscription-handle{
+        opacity: 1;
+    }
+    .delete-mark{
+        cursor: pointer;
+    }
+}
+
+/*------------------------------------*\
+    #RESPONSIVE DESIGN
+\*------------------------------------*/
+
+/* Below 440, it's grateful to only show parts of the footer. */
+@media (max-width: 440px) {
+    .app-footer .support{
+        display: none;
+    }
+}
+
+/* The css width of iPad air 2 is 768 (portrait). */
+@media (max-width: 768px) {
+    .wrapper-header{
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .header-title{
+        padding: 0 5px;
+    }
+    .control-help{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .control-reset{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .day-item{
+        border-top: 2px solid $theme-color-b;
+        border-bottom: 2px solid $theme-color-b;
+    }
+    .day-item:not(:last-of-type){
+        border-right: 2px solid $theme-color-b;
+    }
+    .subscription-display{
+        padding: 0 10px;
+    }
+    .app-layer{
+        .frame-box{
+            width: 240px;
+        }
+        .box-main{
+            padding: 20px;
+        }
+        .note-sub-text{
+            font-size: 12px;
+        }
+    }
+}
+
+@media (min-width: 769px) {
+    .wrapper{
+        max-width: $wrapper-width;
+        margin: 0 auto;
+        padding-left: 10px;
+        padding-right: 10px;
+        box-sizing: border-box;
+    }
+    .wrapper-header{
+        display: flex;
+        height: 100%;
+    }
+    .header-title{
+        flex: 1;
+        padding-left: 10px;
+        margin-right: 10px;
+    }
+    .header-control{
+        margin-right: -10px;
+    }
+    .app-main{
+        font-size: 16px;
+    }
+    .reminder-collection{
+        @mixin clearfix;
+    }
+    .reminder-item{
+        float: left;
+        margin-bottom: 10px;
+
+        &:not(:last-of-type){
+            margin-right: 20px;
+        }
+    }
+    .day-collection{
+        max-width: 768px;
+    }
+    .day-item{
+        border-top: 2px solid $theme-color-b;
+        border-bottom: 2px solid $theme-color-b;
+        border-right: 2px solid $theme-color-b;
+    }
+    .day-item:first-of-type{
+        border-left: 2px solid $theme-color-b;
+        border-radius: 3px 0 0 3px;
+    }
+    .day-item:last-of-type{
+        border-radius: 0 3px 3px 0;
+    }
+    .app-layer{
+        .frame-box{
+            width: 360px;
+        }
+        .box-main{
+            padding: 30px;
+        }
+        .note-text{
+            font-size: 16px;
+        }
+        .note-sub-text{
+            font-size: 14px;
+        }
+    }
+}
+
+/* The width of custom center wrapper is 980. */
+@media (max-width: 980px) {
+    .view-switch{
+        right: 10px;
+        bottom: 10px;
+    }
+}
+
+@media (min-width: 981px) {
+    .view-switch{
+        margin-left: 440px;
+        left: 50%;
+        bottom: 10px;
+    }
+}
+
+/*------------------------------------*\
+    #ANIMATION KEYFRAMES
+\*------------------------------------*/
+
+@keyframes scaleIn{
+    0%{
+        transform: scale(.95);
+        opacity: 0;
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
