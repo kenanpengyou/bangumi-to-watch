@@ -279,6 +279,61 @@ html, body{
     }
 }
 
+.help-layer{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    left: 0;
+    top: 0;
+    z-index: 200;
+
+    &.is-visible{
+        display: flex;
+
+        .help-article{
+            animation: fadeIn .25s both;
+        }
+    }
+
+    .help-close{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 0 0 0 40px;
+        background: #fff;
+        color: $theme-color-c;
+        font-size: 24px;
+        right: 0;
+        top: 0;
+
+        &:hover,
+        &:active{
+            background: $tap-color;
+        }
+
+        i{
+            position: relative;
+            top: -5px;
+            right: -5px;
+        }
+    }
+    .help-article{
+        max-width: $wrapper-width;
+        padding: 10px;
+        box-sizing: border-box;
+        line-height: 1.6;
+    }
+
+}
+
 /*------------------------------------*\
     #MAIN
 \*------------------------------------*/
@@ -689,6 +744,15 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     }
     100%{
         transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+    }
+    100%{
         opacity: 1;
     }
 }

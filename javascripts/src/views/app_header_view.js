@@ -71,9 +71,7 @@ var AppHeaderView = Backbone.View.extend({
         });
     },
     appHelp: function(event){
-        dispatcher.trigger("layer:alert", {
-            textMain: "暂不提供帮助 = ="
-        });
+        dispatcher.trigger("help");
     },
 
     // ------- custom below -------

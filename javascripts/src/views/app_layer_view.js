@@ -47,7 +47,7 @@ var AppLayerView = Backbone.View.extend({
         "pointerup .submit-no": "submitNo"
     },
     submitNo: function(event){
-        this.$el.empty().removeClass("is-visible");
+        this.$el.removeClass("is-visible").empty();
     },
     submitYes: function(event){
 
@@ -58,7 +58,7 @@ var AppLayerView = Backbone.View.extend({
             this.handlerFn();
         }
 
-        this.$el.empty().removeClass("is-visible");
+        this.$el.removeClass("is-visible").empty();
     },
 
     // ------- custom below -------

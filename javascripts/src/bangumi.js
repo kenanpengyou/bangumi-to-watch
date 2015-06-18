@@ -33,6 +33,7 @@ var noteReminders = new NoteReminders(null, {
 //--------------
 var AppHeaderView = require("./views/app_header_view");
 var AppLayerView = require("./views/app_layer_view");
+var HelpLayerView = require("./views/help_layer_view");
 var MainProgramView = require("./views/main_program_view");
 var MainRemindersView = require("./views/main_reminders_view");
 var ControlSwitchView = require("./views/control_switch_view");
@@ -41,6 +42,7 @@ var appHeaderView = new AppHeaderView({
     collection: recorders
 });
 var appLayerView = new AppLayerView();
+var helpLayerView = new HelpLayerView();
 var mainProgramView = new MainProgramView({
     collection: dayNotes,
     hide: true
