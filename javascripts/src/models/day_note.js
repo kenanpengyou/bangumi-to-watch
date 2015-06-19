@@ -16,6 +16,8 @@ var DayNote = Backbone.Model.extend({
     isFull: function(){
         return this.get("records").length >= 99;
     },
+
+    // Be award of that as "records" is a array, these manipulations won't fire "change" to this model.
     addRecord: function(record){
         var records = this.get("records");
 

@@ -18,7 +18,7 @@ var SubscriptionView = Backbone.View.extend({
         // Use a more intelligible alias.
         this.dayNotes = this.collection;
         this.render();
-        this.listenTo(this.dayNotes, "change", this.render)
+        this.listenTo(this.dayNotes, "change", this.render);
     },
     templateOverview: _.template(subscriptionOverviewTemplate),
     templateItem:  _.template(subscriptionTemplate),
@@ -28,7 +28,7 @@ var SubscriptionView = Backbone.View.extend({
         var html = "",
         model = this.dayNotes.getSelectedItem(),
         records = model.get("records"),
-        isEditing = this.collectionEl ? this.collectionEl.hasClass(".is-editing") : false;
+        isEditing = this.collectionEl ? this.collectionEl.hasClass("is-status-delete") : false;
 
         // Two parts, overview and subscription items.
         html += this.templateOverview({
@@ -54,7 +54,7 @@ var SubscriptionView = Backbone.View.extend({
         this.collectionEl = this.$(".subscription-collection");
 
         if(isEditing){
-            this.collectionEl.addClass("is-editing");
+            this.collectionEl.addClass("is-status-delete");
         }
 
         // Reset some status.
@@ -228,11 +228,11 @@ var SubscriptionView = Backbone.View.extend({
         this.helpEl.remove();
     },
     executeDelete: function(itemEl, model, record){
-        var that = this;
+        var render = _.bind(this.render, this);
 
         itemEl.fadeOut("slow", function(){
-            model.removeRecord(record).save();
-            that.render();
+            model.removeRecord(record);
+            render();
         });
     }
 });
