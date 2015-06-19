@@ -51,6 +51,9 @@ $tap-color: #d9effa;
 a, img {
     -webkit-touch-callout: none;
 }
+html, body{
+    user-select: none;
+}
 body{
     font-family: verdana, "Microsoft Yahei", arial, sans-serif;
     font-size: 14px;
