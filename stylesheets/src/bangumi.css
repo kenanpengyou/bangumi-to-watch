@@ -570,7 +570,8 @@ _:-ms-input-placeholder, :root .view-switch.is-flipped {
     background: none;
     color: #333;
 
-    .bangumi-title {
+    .bangumi-title,
+    .subscription-handle{
         display: none;
     }
     .subscription-input{

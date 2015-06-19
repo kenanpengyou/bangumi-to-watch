@@ -63,7 +63,7 @@ var SubscriptionView = Backbone.View.extend({
         return this;
     },
     events: {
-        "dblclick .subscription-collection:not(.is-status-delete) .subscription-item": "modifyItem",
+        "dblclick .subscription-collection:not(.is-status-delete) .subscription-item:not(.is-editing)": "modifyItem",
         "pointerdown .subscription-collection:not(.is-status-delete) .subscription-item": "detectItemLongPress",
         "pointerup .subscription-collection:not(.is-status-delete) .subscription-item": "detectItemLongPress",
         "pointerup .subscription-edit": "toggleEditing",
@@ -93,8 +93,6 @@ var SubscriptionView = Backbone.View.extend({
         }else if(event.type === "pointerup"){
             clearTimeout(this.pressFlag);
         }
-
-        return false;
     },
     toggleEditing: function(event){
         this.collectionEl.addClass("is-gradual").toggleClass("is-status-delete");
