@@ -1,3 +1,5 @@
+![Bangumi to Watch cover](http://kenanpengyou.github.io/assets/used-images/projects/bangumi-to-watch/bangumi_to_watch_cover.png)
+
 # Bangumi to Watch
 A web application that may be useful for a TV series follower.
 
@@ -5,8 +7,9 @@ A web application that may be useful for a TV series follower.
 * [Backbone](http://backbonejs.org/)
 * [Backbone.localStorage](https://github.com/jeromegn/Backbone.localStorage)
 * [jQuery](https://jquery.com/)
-* [pepjs](https://github.com/jquery/PEP) (Using PointerEvents W3C sepc to handle multiple input types such as mouse and touch)
+* [PEP](https://github.com/jquery/PEP) (Using PointerEvents W3C sepc to handle multiple input types such as mouse and touch)
 * [PostCSS](https://github.com/postcss/postcss)
+* [Fontello](http://fontello.com/)
 * [Browserify](http://browserify.org/)
 * [Browsersync](http://www.browsersync.io/)
 
