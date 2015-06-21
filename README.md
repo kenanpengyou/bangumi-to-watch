@@ -11,9 +11,9 @@ A web application that may be useful for a TV series follower.
 * [Browsersync](http://www.browsersync.io/)
 
 ## To start with this repo on your own
-1. Clone this resp
+1. Clone this resp.
 
-2. Install dependencies
+2. Install dependencies.
 
         npm install --global gulp
         npm install
@@ -27,5 +27,5 @@ A web application that may be useful for a TV series follower.
 
 4. Back to the root of this resp. 
 
-    * To develop with local server (by browser), use `gulp dev` or `gulp`.
+    * To develop with local server (by Browsersync), use `gulp dev` or `gulp`.
     * To make a release version, use `gulp release`.
