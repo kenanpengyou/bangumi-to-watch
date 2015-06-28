@@ -14,7 +14,7 @@ A web application that may be useful for a TV series follower.
 * [Browsersync](http://www.browsersync.io/)
 
 ## To start with this repo on your own
-1. Clone this resp.
+1. Clone this repo.
 
 2. Install dependencies.
 
@@ -28,7 +28,7 @@ A web application that may be useful for a TV series follower.
         npm install
         grunt
 
-4. Back to the root of this resp. 
+4. Back to the root of this repo. 
 
     * To develop with local server (by Browsersync), use `gulp dev` or `gulp`.
     * To make a release version, use `gulp release`.
